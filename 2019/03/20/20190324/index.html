@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>JAVA JUC | Wzj&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JAVA JUC： import java.util.concurrent ！看 java 高并发程序设计 做了一点总结">
+<meta name="keywords" content="多线程,JUC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA JUC">
+<meta property="og:url" content="http://superactivWzj.github.io/2019/03/20/20190324/index.html">
+<meta property="og:site_name" content="Wzj&#39;s blog">
+<meta property="og:description" content="JAVA JUC： import java.util.concurrent ！看 java 高并发程序设计 做了一点总结">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-26T10:58:35.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA JUC">
+<meta name="twitter:description" content="JAVA JUC： import java.util.concurrent ！看 java 高并发程序设计 做了一点总结">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Wzj</a></h1>
+        </hgroup>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/superactivWzj" title="github">github</a>
+                            
+                                <a class="fl weibo" target="_blank" href="https://weibo.com/u/5960820522" title="weibo">weibo</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                    </div>
+                </section>
+                
+                
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Wzj</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Wzj</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/superactivWzj" title="github">github</a>
+                    
+                        <a class="weibo" target="_blank" href="https://weibo.com/u/5960820522" title="weibo">weibo</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-20190324" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/20/20190324/" class="article-date">
+      <time datetime="2019-03-20T14:35:37.000Z" itemprop="datePublished">2019-03-20</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JAVA JUC
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程-JUC/">多线程,JUC</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong> JAVA JUC：</strong> <excerpt in index | 首页摘要><br>import java.util.concurrent ！看 java 高并发程序设计 做了一点总结<br><a id="more"></a></excerpt></p>
+<p><the rest of contents | 余下全文></the></p>
+<h1 id="import-java-util-concurrent-！"><a href="#import-java-util-concurrent-！" class="headerlink" title="import java.util.concurrent ！"></a>import java.util.concurrent ！</h1><ul>
+<li>多种多线程控制方法</li>
+<li>线程池</li>
+<li>JDK并发容器</li>
+</ul>
+<h2 id="多线程控制方法"><a href="#多线程控制方法" class="headerlink" title="多线程控制方法"></a>多线程控制方法</h2><h3 id="重入锁（synchronized功能扩展）"><a href="#重入锁（synchronized功能扩展）" class="headerlink" title="重入锁（synchronized功能扩展）"></a>重入锁（synchronized功能扩展）</h3><p>重入锁可以完全替代synchronized关键字，性能差距不大</p>
+<p>重入锁使用ReentrantLock类实现，与synchronize关键字相比，重入锁有显式的加锁释放锁，对逻辑控制更为灵活。</p>
+<p>此外还有一些高级功能。</p>
+<ul>
+<li>中断响应。对于synchronized来说，如果一个线程在等待锁，那么结果只有两种情况，要么它获得这把锁继续执行，要么它就保持等待。而使用重入锁，则提供另外一种可能，那就是线程可以中断，也就是在等待锁的过程中，程序可以根据需要取消对锁的请求。reentrantLock.lockInterruptibly();这个方法是一个可以对中断进行响应的锁申请动作。</li>
+<li>锁申请等待限时，给定一个时间，让线程自动放弃获取锁。我们可以使用trylock()方法进行一次限时的等待。</li>
+<li>公平锁。公平锁会按照时间的先后顺序，保证先到者先得。公平锁不会产生饥饿。实现公平锁要求系统维护一个有序队列，因此公平锁的实现成本比较高，性能相对低下。</li>
+</ul>
+<h3 id="重入锁的搭档-condition条件"><a href="#重入锁的搭档-condition条件" class="headerlink" title="重入锁的搭档 condition条件"></a>重入锁的搭档 condition条件</h3><p>wait()和notify()条件是和synchronized关键字合作使用的。</p>
+<p>而condition条件是与重入锁相关联的。</p>
+<p>和object.wait和object.notify方法一样，当线程使用condition.await()方法时，要求线程有相关的重入锁，在condition。await方法调用后，这个线程就会释放这把锁。同理，在condition.signal方法调用时，也要求线程获得相关的锁。</p>
+<h3 id="允许多个线程同时访问-信号量"><a href="#允许多个线程同时访问-信号量" class="headerlink" title="允许多个线程同时访问 信号量"></a>允许多个线程同时访问 信号量</h3><p>广义上说，信号量是对锁的扩展。无论是内部锁synchronize还是重入锁reentrantlock，一次都只允许一个线程访问一个资源。而信号量却可以指定多个线程，同时访问某一个资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Semaphore semp = <span class="keyword">new</span> Semaphore(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>申明了一个包含5个许可的信号量，这就意味着同时可以有5个线程进入semp.acquire()～semp.release()之间的代码段。</p>
+<h3 id="ReadWriteLock-读写锁"><a href="#ReadWriteLock-读写锁" class="headerlink" title="ReadWriteLock 读写锁"></a>ReadWriteLock 读写锁</h3><p>读写锁允许多个线程同时读，但写写操作和读写操作依然是需要相互等待和持有锁的。如果读操作远远大于写操作，那么读写锁可以发挥最大的功效。</p>
+<h3 id="CountDownLatch-倒计时器"><a href="#CountDownLatch-倒计时器" class="headerlink" title="CountDownLatch 倒计时器"></a>CountDownLatch 倒计时器</h3><p>倒计时器是一个非常实用的多线程控制工具类。这个工具常用来控制线程等待，它可以让某一个线程等待直到倒计时结束，在开始执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>生成了一个CountDownLatch的实例，计数数量为10，这代表着需要10个线程完成任务，等待在CountDownLatch上的线程才能继续执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CountDownLatch.countdown()</span><br></pre></td></tr></table></figure>
+<p>在线程内调用上面的方法，通知CountDownLatch，一个线程已经完成了任务，倒计时器可以减1.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CountDownLatch.await()</span><br></pre></td></tr></table></figure>
+<p>调用该方法的线程需要等待所有10个线程任务全部完成，待10个任务全部完成后，该线程才能继续执行。</p>
+<h3 id="CyclicBarrier-循环栅栏"><a href="#CyclicBarrier-循环栅栏" class="headerlink" title="CyclicBarrier 循环栅栏"></a>CyclicBarrier 循环栅栏</h3><p>CyclicBarrier是另外一种多线程并发控制使用工具。和CountDownLatch非常相似，它可以实现线程间的计数等待，但它的功能比CountDownLatch更加复杂且强大。</p>
+<p>在CyclicBarrier中，我们将计数器设为10，那么凑齐第一批10个线程后，计数器归零，然后接着凑齐下一批10个线程。</p>
+<p>比CountDownLatch略微强大点，CyclicBarrier可以接受一参数为barrierAction，就是当计数器完成一次计数后，系统会执行的动作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CyclicBarrier.awiat()</span><br></pre></td></tr></table></figure>
+<p>每个线程调用该方法，表示等待N个线程，当一批线程完成后，才会继续执行下面的任务。</p>
+<p>CyclicBarrier可能会有两个异常，InterruptedException和BrokenBarrierException。</p>
+<h3 id="线程阻塞工具类-LockSupport"><a href="#线程阻塞工具类-LockSupport" class="headerlink" title="线程阻塞工具类 LockSupport"></a>线程阻塞工具类 LockSupport</h3><p>LockSupport可以在线程内任意位置让线程阻塞。</p>
+<ul>
+<li>和Thread.suspend()相比，它弥补了由于resume()发生在suspend()之前，导致线程无法继续执行，并可能产生死锁的情况。</li>
+<li>和object.wait()相比，它不需要先获得某个对象的锁，也不会抛出InterruptedException异常。</li>
+</ul>
+<p>LockSupport的静态方法park()可以阻塞当前线程，类似的还有parkNanos()、partUntil()等，他们实现了限时的等待。</p>
+<p>LockSupport使用了类似于（二元）信号量的机制。它为每个线程准备了一个许可，默认为0。如果许可可用，那么park函数会立即返回，并且消费这个许可（也就是继续执行）；如果不可用，那么会挂起。而unpark会使得一个许可变为可用。</p>
+<p>处于park挂起的线程不会像suspend那样还给出一个令人费解的Runnable状态。它会非常明确的给出waiting（parking）。</p>
+<h2 id="线程复用-线程池"><a href="#线程复用-线程池" class="headerlink" title="线程复用 线程池"></a>线程复用 线程池</h2><p>为了避免频繁地创建和销毁线程，我们可以创建线程池对线程进行复用。</p>
+<p>线程池中，总有那么几个活跃的线程，当你需要使用线程时，从池子中随便拿一个空闲线程，当完成工作后，并不急着关闭线程，而是将这个线程放回池子，方便其他人使用。使用线程池后，创建线程变成了从池子里获得空闲线程，销毁线程变成了向池子归还线程。</p>
+<p>JDK Executor框架提供了各种类型的线程池，主要有以下工厂方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExectorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExectorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExectorService <span class="title">newCachedThreadPool</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ScheduleExecutorService <span class="title">newSingleThreadScheduledExecutor</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ScheduleExecutorService <span class="title">newScheduleThreadPool</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span></span></span><br></pre></td></tr></table></figure>
+<p>以上方法分别返回具有不同特性的线程池。</p>
+<ul>
+<li>newFixedThreadPool(int nThreads) 该方法返回一个固定线程数量的线程池。当有一个新任务提交时，线程中若有空闲线程，则立即执行；若没有，则新的任务会被暂存到一个任务队列，待线程空闲时，便处理在任务队列里的任务。</li>
+<li>newSingleThreadExecutor() 该方法返回一个只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存到一个任务队列中，待线程空闲，按FIFO的顺序执行队列中的任务。</li>
+<li>newCachedThreadPool() 该方法返回一个可以根据实际情况调整线程数量的线程池。线程池中的线程数量不确定，但若有空闲线程可以复用，则会优先使用可以复用的线程。若所有的线程都在工作，又有新的任务提交，则会创建新的线程处理任务。所有线程在当前任务执行完毕后，将返回线程池进行复用。</li>
+<li>newSingleThreadScheduledExecutor() 该方法返回一个ScheduleExecutorService对象，线程池大小为1。ScheduleExecutorService接口在ExecutorService接口之上扩展了在给定时间执行某任务的功能。如在某个固定的延时之后执行，或在周期性执行某个任务。</li>
+<li>newScheduleThreadPool(int corePoolSize) 该方法返回一个ScheduleExecutorService对象，但该线程池可以指定线程数量。</li>
+</ul>
+<h3 id="核心线程池的内部实现"><a href="#核心线程池的内部实现" class="headerlink" title="核心线程池的内部实现"></a>核心线程池的内部实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (corePoolSize &lt; <span class="number">0</span> ||</span><br><span class="line">        maximumPoolSize &lt;= <span class="number">0</span> ||</span><br><span class="line">        maximumPoolSize &lt; corePoolSize ||</span><br><span class="line">        keepAliveTime &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    <span class="keyword">if</span> (workQueue == <span class="keyword">null</span> || threadFactory == <span class="keyword">null</span> || handler == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">this</span>.corePoolSize = corePoolSize;</span><br><span class="line">    <span class="keyword">this</span>.maximumPoolSize = maximumPoolSize;</span><br><span class="line">    <span class="keyword">this</span>.workQueue = workQueue;</span><br><span class="line">    <span class="keyword">this</span>.keepAliveTime = unit.toNanos(keepAliveTime);</span><br><span class="line">    <span class="keyword">this</span>.threadFactory = threadFactory;</span><br><span class="line">    <span class="keyword">this</span>.handler = handler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数参数含义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> corePoolSize,	<span class="comment">//指定了线程池中的线程数量</span></span><br><span class="line"><span class="keyword">int</span> maximumPoolSize,	<span class="comment">//指定了线程池中的最大线程数量</span></span><br><span class="line"><span class="keyword">long</span> keepAliveTime,	<span class="comment">//当线程池线程超过了corepoolsize时， 多余的空闲线程存活时间</span></span><br><span class="line">TimeUnit unit,	<span class="comment">//keepalivetime的单位</span></span><br><span class="line">BlockingQueue&lt;Runnable&gt; workQueue,	<span class="comment">//任务队列，被提交但尚未被执行的任务</span></span><br><span class="line">ThreadFactory threadFactory,	<span class="comment">//线程工厂，用于创建线程，一般用默认的即可</span></span><br><span class="line">RejectedExecutionHandler handler	<span class="comment">//拒绝策略，当任务太多来不及更新，如何拒绝任务</span></span><br></pre></td></tr></table></figure>
+<p>对workQueue和handler进行详细说明。</p>
+<p>参数workQueue值被提交但尚未被执行的任务队列，它是一个BlockingQueue接口的对象，仅用于存放runable对象。根据队列功能分类，可使用一下几种BlockingQueue。</p>
+<ul>
+<li><p>直接提交的队列。该功能由SynchronousQueue对象提供。SynchronousQueue是一个特殊的BLockingQueue。SynchronousQueue没有容量，提交的任务不会被真实的保存，而总是将新任务提交给线程执行。如果没有空闲的线程，则尝试创建新的线程，如果线程数量达到了最大值，则执行拒绝策略。</p>
+</li>
+<li><p>有界的任务队列。有界的任务队列可以使用ArrayBlockingQueue实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayBlockingQueue</span><span class="params">(<span class="keyword">int</span> capacity)</span></span></span><br></pre></td></tr></table></figure>
+<p>当使用有界的任务队列时，若有新的任务需要执行，如果线程池的线程数量小于corePoolSize，则会优先创建新的线程，若大于，则会将新任务加入等待队列。若等待队列已满，无法加入，则在总线程数不大于maximumPoolSize的前提下，创建新的线程执行任务。若大于maximumPoolSize，执行拒绝策略。可见，当任务队列装满时，才可能将线程数量提升到corePoolSize以上。</p>
+</li>
+<li><p>无界的任务队列。无界的任务队列可以通过LinkedBlockingQueue类实现。除非系统资源耗尽，否则无界的任务队列不会出现任务入队失败的情况。当有新的任务到来，系统的线程数小于corePoolSize时，线程池会产生新的线程执行任务，但当线程数达到corePoolSize后，线程数不会增加，任务直接进入队列等待。</p>
+</li>
+<li><p>优先任务队列。优先任务对立是带有执行优先级的队列。它通过PriorityBlockingQueue实现，可以控制任务的执行先后顺序。它是一个特殊的无界队列，根据任务自身的优先级来先后执行。</p>
+</li>
+</ul>
+<h3 id="拒绝策略"><a href="#拒绝策略" class="headerlink" title="拒绝策略"></a>拒绝策略</h3><p>JDK内置了四种拒绝策略：</p>
+<ul>
+<li>AbortPolicy：该策略会直接抛出异常，阻止系统正常工作</li>
+<li>CallerRunsPolicy：只要线程池未关闭，该策略直接在调用者线程中，运行当前被丢弃的任务</li>
+<li>DiscardOldestPolicy：丢弃最老的一个任务，也就是即将被执行的一个任务，并尝试再次提交当前任务</li>
+<li>DiscardPolicy：默默地丢弃无法处理的任务</li>
+</ul>
+<p>可以自定义扩展RejectExecutionHandler接口。</p>
+<h3 id="自定义线程创建-ThreadFactory"><a href="#自定义线程创建-ThreadFactory" class="headerlink" title="自定义线程创建 ThreadFactory"></a>自定义线程创建 ThreadFactory</h3><p>线程从何而来？答案就是ThreadFactory。</p>
+<p>ThreadFactory是一个接口，它只有一个方法，用来创建线程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Thread <span class="title">newThread</span><span class="params">(Runnable r)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="扩展线程池"><a href="#扩展线程池" class="headerlink" title="扩展线程池"></a>扩展线程池</h3><p>情景：我们想监控每个任务执行开始和结束的时间</p>
+<p>ThreadPoolExecutor是一个可扩展的线程池。它提供了beforeExecute()和afterExecute()、terminated()三个接口对线程池进行控制。</p>
+<h3 id="分而治之-fork-join框架"><a href="#分而治之-fork-join框架" class="headerlink" title="分而治之 fork/join框架"></a>分而治之 fork/join框架</h3><p>对于线程池的优化，提交的任务和线程数量并不是一对一的关系。在绝大多数情况下，一个物理线程实际上是需要处理多个逻辑任务的。因此，每个线程必然需要拥有一个任务队列。因此，在实际执行过程中，可能遇到线程A已经把自己的任务做完了，而线程B还有一堆任务等着处理。此时，线程A就会帮助线程B，从线程B的任务队列中拿一个任务过来处理，尽可能地达到平衡。注意：一个线程试图帮助别人时，总是从任务队列的底部开始拿数据，而线程试图执行自己的任务时，则是从相反的顶部拿，避免数据竞争。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">ForkJoinTask&lt;T&gt; <span class="title">submit</span><span class="params">(ForkJoinTask&lt;T&gt; task)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> externalSubmit(task);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>ForkJoinTask有两个子类，RecursiveAction和RecursiveTask，分别表示无返回值和有返回值的任务。</p>
+<h2 id="JDK并发容器"><a href="#JDK并发容器" class="headerlink" title="JDK并发容器"></a>JDK并发容器</h2><ul>
+<li>ConcurrentHashmap 线程安全的hashmap</li>
+<li>CopyOnWriteArrayList 在读多写少的情况下，性能好</li>
+<li>ConcurrentLinkedQueue 高效的并发队列，线程安全LinkedList</li>
+<li>BlockingQueue 这是一个接口，表示阻塞队列，JDK使用数组、链表等方式实现了这个接口</li>
+<li>ConcurrentSkipListMap 跳表的实现</li>
+</ul>
+<h1 id="锁的优化及注意事项"><a href="#锁的优化及注意事项" class="headerlink" title="锁的优化及注意事项"></a>锁的优化及注意事项</h1><h2 id="有助于优化锁的几点建议"><a href="#有助于优化锁的几点建议" class="headerlink" title="有助于优化锁的几点建议"></a>有助于优化锁的几点建议</h2><ul>
+<li>减小锁的持有时间</li>
+<li>减小锁的粒度</li>
+<li>读写分离锁来替换独占锁</li>
+<li>锁分离</li>
+<li>锁粗化</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/03/20/20190324/">JAVA JUC</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
+        <p><span>发布时间:</span>2019年03月20日 - 22时35分</p>
+        <p><span>最后更新:</span>2019年03月26日 - 18时58分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/20/20190324/" title="JAVA JUC">http://superactivWzj.github.io/2019/03/20/20190324/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/03/20/20190324/　　作者: Wzj" title></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/20/20190325/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis 相关</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#import-java-util-concurrent-！"><span class="toc-number">1.</span> <span class="toc-text">import java.util.concurrent ！</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程控制方法"><span class="toc-number">1.1.</span> <span class="toc-text">多线程控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重入锁（synchronized功能扩展）"><span class="toc-number">1.1.1.</span> <span class="toc-text">重入锁（synchronized功能扩展）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重入锁的搭档-condition条件"><span class="toc-number">1.1.2.</span> <span class="toc-text">重入锁的搭档 condition条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#允许多个线程同时访问-信号量"><span class="toc-number">1.1.3.</span> <span class="toc-text">允许多个线程同时访问 信号量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReadWriteLock-读写锁"><span class="toc-number">1.1.4.</span> <span class="toc-text">ReadWriteLock 读写锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CountDownLatch-倒计时器"><span class="toc-number">1.1.5.</span> <span class="toc-text">CountDownLatch 倒计时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CyclicBarrier-循环栅栏"><span class="toc-number">1.1.6.</span> <span class="toc-text">CyclicBarrier 循环栅栏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程阻塞工具类-LockSupport"><span class="toc-number">1.1.7.</span> <span class="toc-text">线程阻塞工具类 LockSupport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程复用-线程池"><span class="toc-number">1.2.</span> <span class="toc-text">线程复用 线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#核心线程池的内部实现"><span class="toc-number">1.2.1.</span> <span class="toc-text">核心线程池的内部实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝策略"><span class="toc-number">1.2.2.</span> <span class="toc-text">拒绝策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义线程创建-ThreadFactory"><span class="toc-number">1.2.3.</span> <span class="toc-text">自定义线程创建 ThreadFactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展线程池"><span class="toc-number">1.2.4.</span> <span class="toc-text">扩展线程池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分而治之-fork-join框架"><span class="toc-number">1.2.5.</span> <span class="toc-text">分而治之 fork/join框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK并发容器"><span class="toc-number">1.3.</span> <span class="toc-text">JDK并发容器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#锁的优化及注意事项"><span class="toc-number">2.</span> <span class="toc-text">锁的优化及注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#有助于优化锁的几点建议"><span class="toc-number">2.1.</span> <span class="toc-text">有助于优化锁的几点建议</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'xxxx',
+      conf: 'xxxxxxxxx'
+    });
+  </script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/03/20/20190325/" title="下一篇: Redis 相关">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190324/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190325/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190326/">分布式的一些算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190323/">Spring 相关</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 Wzj
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/superactivWzj" target="_blank">Blog</a> 
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

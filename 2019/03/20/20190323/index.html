@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>Spring 相关 | Wzj&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring 相关： 总结的一些Spring">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 相关">
+<meta property="og:url" content="http://superactivWzj.github.io/2019/03/20/20190323/index.html">
+<meta property="og:site_name" content="Wzj&#39;s blog">
+<meta property="og:description" content="Spring 相关： 总结的一些Spring">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-26T10:58:33.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring 相关">
+<meta name="twitter:description" content="Spring 相关： 总结的一些Spring">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Wzj</a></h1>
+        </hgroup>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/superactivWzj" title="github">github</a>
+                            
+                                <a class="fl weibo" target="_blank" href="https://weibo.com/u/5960820522" title="weibo">weibo</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                    </div>
+                </section>
+                
+                
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Wzj</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Wzj</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/superactivWzj" title="github">github</a>
+                    
+                        <a class="weibo" target="_blank" href="https://weibo.com/u/5960820522" title="weibo">weibo</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-20190323" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/20/20190323/" class="article-date">
+      <time datetime="2019-03-20T14:35:37.000Z" itemprop="datePublished">2019-03-20</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring 相关
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong> Spring 相关：</strong> <excerpt in index | 首页摘要><br>总结的一些Spring<br><a id="more"></a></excerpt></p>
+<p><the rest of contents | 余下全文></the></p>
+<h1 id="Spring-Bean-的生命周期"><a href="#Spring-Bean-的生命周期" class="headerlink" title="Spring Bean 的生命周期"></a>Spring Bean 的生命周期</h1><ul>
+<li>实例化bean对象(通过构造方法或者工厂方法)</li>
+<li>设置对象属性(setter等)（依赖注入）</li>
+<li>如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）</li>
+<li>如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身</li>
+<li>将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法<br>调用Bean的初始化方法</li>
+<li>将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法</li>
+<li>使用Bean</li>
+<li>容器关闭之前，调用Bean的销毁方法</li>
+</ul>
+<h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><p>Spring 3中为Bean定义了5中作用域，分别为singleton（单例）、prototype（原型）、request、session和global session，5种作用域说明如下：</p>
+<ol>
+<li>singleton：单例模式，Spring IoC容器中只会存在一个共享的Bean实例，无论有多少个Bean引用它，始终指向同一对象。Singleton作用域是Spring中的缺省作用域，也可以显示的将Bean定义为singleton模式，配置为：<ul>
+<li><bean id="userDao" class="com.ioc.UserDaoImpl" scope="singleton"></bean></li>
+</ul>
+</li>
+<li>prototype:原型模式，每次通过Spring容器获取prototype定义的bean时，容器都将创建一个新的Bean实例，每个Bean实例都有自己的属性和状态，而singleton全局只有一个对象。根据经验，对有状态的bean使用prototype作用域，而对无状态的bean使用singleton作用域。</li>
+<li>request：在一次Http请求中，容器会返回该Bean的同一实例。而对不同的Http请求则会产生新的Bean，而且该bean仅在当前Http Request内有效。<ul>
+<li><bean id="loginAction" class="com.cnblogs.Login" scope="request">,针对每一次Http请求，Spring容器根据该bean的定义创建一个全新的实例，且该实例仅在当前Http请求内有效，而其它请求无法看到当前请求中状态的变化，当当前Http请求结束，该bean实例也将会被销毁。</bean></li>
+</ul>
+</li>
+<li>session：在一次Http Session中，容器会返回该Bean的同一实例。而对不同的Session请求则会创建新的实例，该bean实例仅在当前Session内有效。<ul>
+<li><bean id="userPreference" class="com.ioc.UserPreference" scope="session">,同Http请求相同，每一次session请求创建新的实例，而不同的实例之间不共享属性，且实例仅在自己的session请求内有效，请求结束，则实例将被销毁。</bean></li>
+</ul>
+</li>
+<li>global Session：在一个全局的Http Session中，容器会返回该Bean的同一个实例，仅在使用portlet context时有效。</li>
+</ol>
+<h1 id="Bean自动装配的区别"><a href="#Bean自动装配的区别" class="headerlink" title="Bean自动装配的区别"></a>Bean自动装配的区别</h1><p>在Spring框架中共有5种自动装配。</p>
+<ol>
+<li>no：这是Spring框架的默认设置，在该设置下自动装配是关闭的，开发者需要自行在bean定义中用标签明确的设置依赖关系。</li>
+<li>byName：该选项可以根据bean名称设置依赖关系。当向一个bean中自动装配一个属性时，容器将根据bean的名称自动在在配置文件中查询一个匹配的bean。如果找到的话，就装配这个属性，如果没找到的话就报错。</li>
+<li>byType：该选项可以根据bean类型设置依赖关系。当向一个bean中自动装配一个属性时，容器将根据bean的类型自动在在配置文件中查询一个匹配的bean。如果找到的话，就装配这个属性，如果没找到的话就报错。</li>
+<li>constructor：造器的自动装配和byType模式类似，但是仅仅适用于与有构造器相同参数的bean，如果在容器中没有找到与构造器参数类型一致的bean，那么将会抛出异常。</li>
+<li>autodetect：该模式自动探测使用构造器自动装配或者byType自动装配。首先，首先会尝试找合适的带参数的构造器，如果找到的话就是用构造器自动装配，如果在bean内部没有找到相应的构造器或者是无参构造器，容器就会自动选择byTpe的自动装配方式。</li>
+</ol>
+<h1 id="spring（数据库）事务隔离级别分为四种（级别递减）："><a href="#spring（数据库）事务隔离级别分为四种（级别递减）：" class="headerlink" title="spring（数据库）事务隔离级别分为四种（级别递减）："></a>spring（数据库）事务隔离级别分为四种（级别递减）：</h1><p>1、Serializable （串行化）：最严格的级别，事务串行执行，资源消耗最大；</p>
+<p>2、REPEATABLE READ（重复读） ：保证了一个事务不会修改已经由另一个事务读取但未提交（回滚）的数据。避免了“脏读取”和“不可重复读取”的情况，但不能避免“幻读”，但是带来了更多的性能损失。</p>
+<p>3、READ COMMITTED （提交读）：大多数主流数据库的默认事务等级，保证了一个事务不会读到另一个并行事务已修改但未提交的数据，避免了“脏读取”，但不能避免“幻读”和“不可重复读取”。该级别适用于大多数系统。</p>
+<p>4、Read Uncommitted（未提交读） ：事务中的修改，即使没有提交，其他事务也可以看得到，会导致“脏读”、“幻读”和“不可重复读取”。</p>
+<p>脏读、不可重复读、幻读：</p>
+<p>也许有很多读者会对上述隔离级别中提及到的 脏读、不可重复读、幻读 的理解有点吃力，我在这里尝试使用通俗的方式来解释这三种语义：</p>
+<p>脏读：所谓的脏读，其实就是读到了别的事务回滚前的脏数据。比如事务B执行过程中修改了数据X，在未提交前，事务A读取了X，而事务B却回滚了，这样事务A就形成了脏读。</p>
+<p>也就是说，当前事务读到的数据是别的事务想要修改成为的但是没有修改成功的数据。</p>
+<p>不可重复读：事务A首先读取了一条数据，然后执行逻辑的时候，事务B将这条数据改变了，然后事务A再次读取的时候，发现数据不匹配了，就是所谓的不可重复读了。</p>
+<p>也就是说，当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配，也就照应了不可重复读的语义。</p>
+<p>幻读：事务A首先根据条件索引得到N条数据，然后事务B改变了这N条数据之外的M条或者增添了M条符合事务A搜索条件的数据，导致事务A再次搜索发现有N+M条数据了，就产生了幻读。</p>
+<p>也就是说，当前事务读第一次取到的数据比后来读取到数据条目少。</p>
+<p>不可重复读和幻读比较：</p>
+<p>两者有些相似，但是前者针对的是update或delete，后者针对的insert。</p>
+<h1 id="Spring事务传播"><a href="#Spring事务传播" class="headerlink" title="Spring事务传播"></a>Spring事务传播</h1><p>Spring事务的传播行为定义了外层方法[注1]调用带有@Transactional的当前方法时，事务如何进行传播的规则，共有7种类型：<br>（1）PROPAGATION.REQUIRED(默认)<br>如果外层方法有事务，则当前方法加入外层事务；如果外层方法没有事务，则当前方法新建一个事务。<br>（2）PROPAGATION.REQUIRES_NEW<br>当前方法总是开启一个新的事务，如果外层方法有事务，则将外层事务挂起，先执行当前方法的事务（外层事务和当前方法的事务是两个不同的事务）。<br>当当前方法发生回滚并抛出RuntimeException时，如果该异常被捕获，则外层方法的事务不会因此回滚；如果该异常没有被捕获，则外层方法的事务就会因此而回滚。<br>当外层方法发生回滚时，如果其回滚发生在当前方法前，则当前方法得不到执行；如果其回滚发生在当前方法之后，则当前方法不会因此而回滚。<br>（3）PROPAGATION.NESTED<br>如果外层方法没事务，则当前方法新建一个事务；如果外层方法有事务，则把当前方法当成外层事务的一部分（使用savepoint实现），外层方法事务的rolback或者commit都会影响当前方法[注2]，而当前方法的rolback不会导致外层事务回滚，除非rollback过程抛出了RuntimeException且该异常没有被捕获。<br>（4）PROPAGATION.SUPPORTS<br>如果外层方法没事务，那当前方法就按普通方法执行；如果外层方法有事务，则使用外层方法的事务。<br>（5）PROPAGATION.NOT_SUPPORTED<br>当前方法总是非事务地执行，如果外层方法有事务则把事务挂起，当前方法还是以普通方法执行。<br>（6）PROPAGATION.NEVER<br>如果外层方法没事务，那当前方法就按普通方法执行；如果外层方法有事务，则当前方法抛出异常。<br>（7）PROPAGATION.MANDATORY 如果外层方法没事务，则当前方法就会抛出异常；如果外层方法有事务，则当前方法使用外层事务。</p>
+<h1 id="DispatherServlet"><a href="#DispatherServlet" class="headerlink" title="DispatherServlet"></a>DispatherServlet</h1><p>在整个SpringMVC框架中，DispatherServlet吃于核心位置，它负责协调和组织不同组建完成请求处理并返回响应工作。</p>
+<p>SpringMVC的请求处理大致流程：</p>
+<ol>
+<li>Tomcat 启动，对 DispatcherServlet 进行实例化，然后调用它的 init() 方法进行初始化，在这个初始化过程中完成了</li>
+<li>对 web.xml 中初始化参数的加载；建立 WebApplicationContext (SpringMVC的IOC容器)；进行组件的初始化</li>
+<li>客户端发出请求，由 Tomcat 接收到这个请求，如果匹配 DispatcherServlet 在 web.xml 中配置的映射路径，Tomcat 就将请求转交给 DispatcherServlet 处理</li>
+<li>DispatcherServlet 从容器中取出所有 HandlerMapping 实例（每个实例对应一个 HandlerMapping 接口的实现类）并遍历，每个 HandlerMapping 会根据请求信息，通过自己实现类中的方式去找到处理该请求的 Handler (执行程序，如Controller中的方法)，并且将这个 Handler 与一堆 HandlerInterceptor (拦截器) 封装成一个 HandlerExecutionChain 对象，一旦有一个 HandlerMapping 可以找到 Handler 则退出循环</li>
+<li>DispatcherServlet 取出 HandlerAdapter 组件，根据已经找到的 Handler，再从所有 HandlerAdapter 中找到可以处理该 Handler 的 HandlerAdapter 对象</li>
+<li>执行 HandlerExecutionChain 中所有拦截器的 preHandler() 方法，然后再利用 HandlerAdapter 执行 Handler ，执行完成得到 ModelAndView，再依次调用拦截器的 postHandler() 方法</li>
+<li>利用 ViewResolver 将 ModelAndView 或是 Exception（可解析成 ModelAndView）解析成 View，然后 View 会调用 render() 方法再根据 ModelAndView 中的数据渲染出页面</li>
+<li>最后再依次调用拦截器的 afterCompletion() 方法，这一次请求就结束了</li>
+</ol>
+<p>DispacherServlet源码分析：</p>
+<p>DispatcherServlet 继承自 HttpServlet，它遵循 Servlet 里的“init-service-destroy”三个阶段。</p>
+<p>1、初始化</p>
+<p>DispatcherServlet 的 init() 方法在其父类 <strong>HttpServletBean</strong> 中实现的，它覆盖了 GenericServlet 的 init() 方法，主要作用是加载 web.xml 中 DispatcherServlet 的 <init-param> 配置，并调用子类的初始化。</init-param></p>
+<p>在 HttpServletBean 的 init() 方法中调用了 initServletBean() 这个方法，它是在 <strong>FrameworkServlet</strong> 类中实现的，主要作用是建立 WebApplicationContext 容器（有时也称上下文），并加载 SpringMVC 配置文件中定义的 Bean 到改容器中，最后将该容器添加到 ServletContext 中。</p>
+<p>WebApplicationContext 继承于 ApplicationContext 接口，从容器中可以获取当前应用程序环境信息，它也是 SpringMVC 的 IOC 容器。</p>
+<p>建立好 WebApplicationContext(上下文) 后，通过 onRefresh(ApplicationContext context) 方法回调，进入 DispatcherServlet 类中。onRefresh() 方法，提供 SpringMVC 的初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onRefresh</span><span class="params">(ApplicationContext context)</span> </span>&#123;</span><br><span class="line">        initStrategies(context);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initStrategies</span><span class="params">(ApplicationContext context)</span> </span>&#123;</span><br><span class="line">        initMultipartResolver(context);</span><br><span class="line">        initLocaleResolver(context);</span><br><span class="line">        initThemeResolver(context);</span><br><span class="line">        initHandlerMappings(context);</span><br><span class="line">        initHandlerAdapters(context);</span><br><span class="line">        initHandlerExceptionResolvers(context);</span><br><span class="line">        initRequestToViewNameTranslator(context);</span><br><span class="line">        initViewResolvers(context);</span><br><span class="line">        initFlashMapManager(context);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>initHandlerMappings() 方法从 SpringMVC 的容器及 Spring 的容器中查找所有的 HandlerMapping 实例，并把它们放入到 handlerMappings 这个 list 中。这个方法并不是对 HandlerMapping 实例的创建，HandlerMapping 实例是在上面 WebApplicationContext 容器初始化，即 SpringMVC 容器初始化的时候创建的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initHandlerMappings</span><span class="params">(ApplicationContext context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.handlerMappings = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.detectAllHandlerMappings) &#123;</span><br><span class="line">        <span class="comment">// 从 SpringMVC 的 IOC 容器及 Spring 的 IOC 容器中查找 HandlerMapping 实例</span></span><br><span class="line">        Map&lt;String, HandlerMapping&gt; matchingBeans =</span><br><span class="line">        　　　　BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (!matchingBeans.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.handlerMappings = <span class="keyword">new</span> ArrayList&lt;HandlerMapping&gt;(matchingBeans.values());</span><br><span class="line">            <span class="comment">// 按一定顺序放置 HandlerMapping 对象</span></span><br><span class="line">            OrderComparator.sort(<span class="keyword">this</span>.handlerMappings);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HandlerMapping hm = context.getBean(HANDLER_MAPPING_BEAN_NAME, HandlerMapping.class);</span><br><span class="line">            <span class="keyword">this</span>.handlerMappings = Collections.singletonList(hm);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchBeanDefinitionException ex) &#123;</span><br><span class="line">            <span class="comment">// Ignore, we'll add a default HandlerMapping later.</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果没有 HandlerMapping，则加载默认的</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.handlerMappings == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>InitHandlerAdapters方法同理</p>
+<p>2、处理请求：</p>
+<p>HttpServlet 提供了 doGet()、doPost() 等方法，DispatcherServlet 中这些方法是在其父类 FrameworkServlet 中实现的，这些方法有调用了processRequest()方法，再调用doService()方法。DispatcherServlet 的 doService() 方法主要是设置一些 request 属性，并调用 doDispatch() 方法进行请求分发处理，doDispatch() 方法的主要过程是通过 HandlerMapping 获取 Handler，再找到用于执行它的 HandlerAdapter，执行 Handler 后得到 ModelAndView ，ModelAndView 是连接“业务逻辑层”与“视图展示层”的桥梁，接下来就要通过 ModelAndView 获得 View，再通过它的 Model 对 View 进行渲染。</p>
+<h1 id="springmvc-处理流程"><a href="#springmvc-处理流程" class="headerlink" title="springmvc 处理流程"></a>springmvc 处理流程</h1><p>1、  首先用户 发送请求—— &gt;DispatcherServlet ， 分发器收到请求后自己不进行处理，而是委托给其他的解析器进行处理，作为统一访问点，进行全局的流程控制；</p>
+<p>2、  DispatcherServlet —— &gt;HandlerMapping ， HandlerMapping 将会把请求映射为 HandlerExecutionChain 对象（包含一个 Handler 处理器（Controller）对象、多个 HandlerInterceptor 拦截器）对象，通过这种策略模式，很容易添加新的映射策略；</p>
+<p>3、  DispatcherServlet —— &gt;HandlerAdapter ， HandlerAdapter 将会把处理器包装为适配器，从而支持多种类型的处理器，即适配器设计模式的应用，从而很容易支持很多类型的处理器；</p>
+<p>4、  HandlerAdapter —— &gt; 处理器功能处理方法的调用， HandlerAdapter 将会根据适配的结果调用真正的处理器的功能处理方法，完成功能处理（在调用处理器前会先执行spring的前置拦截器preHandle）；并返回一个 ModelAndView 对象（包含模型数据、逻辑视图名），返回视图后会执行spring的后置拦截器postHandle；</p>
+<p>5、  ModelAndView 的逻辑视图名—— &gt; ViewResolver ， ViewResolver 将把逻辑视图名解析为具体的 View，通过这种策略模式，很容易更换其他视图技术；</p>
+<p>6、  View —— &gt; 渲染 ，View 会根据传进来的 Model 模型数据进行渲染，此处的 Model 实际是一个 Map 数据结构，因此很容易支持其他视图技术（这步处理完后执行spring的完成后拦截器）；</p>
+<p>7、  返回控制权给 DispatcherServlet ， 由 DispatcherServlet 返回响应给用户，到此一个流程结束。</p>
+<h1 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h1><p>如果一个类A的功能实现需要借助于B，那么就成类B是类A的依赖，如果在类A的内部去实例化类B，那么两者之间会出现高耦合。一旦类B出现了问题，类A也需要进行改造，如果这样的情况较多，每个类之间有很多的依赖，那么就会出现牵一发而动全身的情况，程序会极难维护，并且很容易出现问题。要解决这个问题，就要把A类对B类的控制权抽离出来，交给第三方去做，把控制权反转给第三方，就称作控制反转（IOC）。控制反转是一种思想，是能够解决问题的一种可能的结果。而依赖注入是实现方式。由第三方通过构造函数、属性注入等方法，注入到A类，这样就极大程度的对类A和类B进行了解耦。</p>
+<ul>
+<li><code>BeanFactory</code>。基础类型<code>IoC容器</code>，提供完整的<code>IoC</code>服务支持。如果没有特殊指定，默认采用延迟初始化策略（<code>lazy-load</code>）。只有当客户端对象需要访问容器中的某个受管对象的时候，才对该受管对象进行初始化以及依赖注入操作。所以，相对来说，容器启动初期速度较快，所需要的资源有限。对于资源有限，并且功能要求不是很严格的场景，<code>BeanFactory</code>是比较合适的<code>IoC容器</code>选择。</li>
+<li><code>ApplicationContext</code>。<code>ApplicationContext</code>在<code>BeanFactory</code>的基础上构建，是相对比较高级的容器实现，除了拥有<code>BeanFactory</code>的所有支持，<code>ApplicationContext</code>还提供了其他高级特性，比如事件发布、国际化信息支持等，<code>ApplicationContext</code>所管理的对象，在该类型容器启动之后，默认全部初始化并绑定完成。所以，相对于<code>BeanFactory</code>来说，<code>ApplicationContext</code>要求更多的系统资源，同时，因为在启动时就完成所有初始化，容<br>器启动时间较之<code>BeanFactory</code>也会长一些。在那些系统资源充足，并且要求更多功能的场景中，<code>ApplicationContext</code>类型的容器是比较合适的选择。</li>
+</ul>
+<p>但是我们无论使用哪个容器，我们都需要通过某种方法告诉容器关于对象依赖的信息。</p>
+<p>在<code>BeanFactory</code>容器中，每一个注入对象都对应一个<code>BeanDefinition</code>实例对象，该实例对象负责保存注入对象的所有必要信息，包括其对应的对象的class类型、是否是抽象类、构造方法参数以及其他属性等。当客户端向<code>BeanFactory</code>请求相应对象的时候，<code>BeanFactory</code>会通过这些信息为客户端返回一个完备可用的对象实例。</p>
+<p>那么<code>BeanDefinition</code>实例对象的信息是从哪而来呢？这里就要引出一个专门加载解析配置文件的类了，他就是<code>BeanDefinitionReader</code>，对应到<code>xml</code>配置文件，就是他的子类<code>XmlBeanDefinitionReader</code>，<code>XmlBeanDefinitionReader</code>负责读取<code>Spring</code>指定格式的<code>XML</code>配置文件并解析，之后将解析后的文件内容映射到相应的<code>BeanDefinition</code>。</p>
+<p>我们把容器创造一个对象的过程称为<code>Bean的注册</code>，实现<code>Bean的注册</code>的接口为<code>BeanDefinitionRegistry</code>，其实<code>BeanFactory</code>只是一个接口，他定义了如何获取容器内对象的方法，我们所说的<code>BeanFactory</code>容器，其实是这个接口的是实现类，但是具体的<code>BeanFactory</code>实现类同时也会实现<code>BeanDefinitionRegistry</code>接口，这样我们才能通过容器注册对象和获取对象。我们通过<code>BeanDefinitionRegistry</code>的<code>rsgisterBeanDefinition(BeanDefinition beandefinition)</code>方法来进行<code>Bean的注册</code>。</p>
+<p>我们来总结一下一个Bean是如何注册到容器中，然后被我们获取的： 首先我们需要配置该Bean的依赖信息，通常我们配置在xml文件中，然后我们通过XmlBeanDefinitionReader读取文件内容，然后将文件内容映射到相应的BeanDefinition，然后我们可以通过BeanFactory和BeanDefinitionRegistry的具体实现类,比如DefaultListableBeanFactory实现Bean的注册和获取</p>
+<p>Spring<code>提供了一种叫做</code>BeanFactoryPostProcessor<code>的容器扩展机制。该机制允许我们在容器实例化相应对象之前，对注册到容器的</code>BeanDefinition`所保存的信息做相应的修改。</p>
+<p>首先是<code>BeanFactory</code>，我们也知道<code>BeanFactory</code>是<code>ApplicationContext</code>的父类，那么功能上<code>BeanFactory</code>也是比较弱小的，我们需要使用手动写代码来应用<code>BeanFactoryPostProcessor</code></p>
+<p>接着是更高级的<code>ApplicationContext</code>容器，这个就牛逼多了，他可以自动识别容器中的<code>BeanFactoryPostProcessor</code>实例对象，并使用他们，是的，是“他们”，我们可以在一个容器中使用多个<code>BeanFactoryPostProcessor</code></p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><ul>
+<li>Aspect（切面）： Aspect 声明类似于 Java 中的类声明，在 Aspect 中会包含着一些 Pointcut 以及相应的 Advice。<br>Joint point（连接点）：表示在程序中明确定义的点，典型的包括方法调用，对类成员的访问以及异常处理程序块的执行等等，它自身还可以嵌套其它 joint point。</li>
+<li>Pointcut（切点）：表示一组 joint point，这些 joint point 或是通过逻辑关系组合起来，或是通过通配、正则表达式等方式集中起来，它定义了相应的 Advice 将要发生的地方。</li>
+<li>Advice（增强）：Advice 定义了在 Pointcut 里面定义的程序点具体要做的操作，它通过 before、after 和 around 来区别是在每个 joint point 之前、之后还是代替执行的代码。</li>
+<li>Target（目标对象）：织入 Advice 的目标对象.。</li>
+<li>Weaving（织入）：将 Aspect 和其他对象连接起来, 并创建 Adviced object 的过程</li>
+</ul>
+<p>AOP中的Joinpoint可以有多种类型：构造方法调用，字段的设置和获取，方法的调用，方法的执行，异常的处理执行，类的初始化。也就是说在AOP的概念中我们可以在上面的这些Joinpoint上织入我们自定义的Advice，但是在Spring中却没有实现上面所有的joinpoint，确切的说，Spring只支持方法执行类型的Joinpoint。</p>
+<p>Advice 的类型</p>
+<p>before advice, 在 join point 前被执行的 advice. 虽然 before advice 是在 join point 前被执行, 但是它并不能够阻止 join point 的执行, 除非发生了异常(即我们在 before advice 代码中, 不能人为地决定是否继续执行 join point 中的代码)</p>
+<ul>
+<li>after return advice, 在一个 join point 正常返回后执行的 advice</li>
+<li>after throwing advice, 当一个 join point 抛出异常后执行的 advice</li>
+<li>after(final) advice, 无论一个 join point 是正常退出还是发生了异常, 都会被执行的 advice.</li>
+<li>around advice, 在 join point 前和 joint point 退出后都执行的 advice. 这个是最常用的 advice.</li>
+<li>introduction，introduction可以为原有的对象增加新的属性和方法。</li>
+</ul>
+<p>在Spring中，通过动态代理和动态字节码技术实现了AOP，这些内容，我们将在以后进行讲解。</p>
+<p><strong>AOP 名词的大白话解说</strong></p>
+<p>　　1、<strong>通知</strong>　　–  Advice</p>
+<p>　　　　<strong>就是要给目标类织入的事情</strong>。就是我们说的额外的一些共同的事情，也就是上面说的 事务，日志等。你给先定义好，然后在想用的地方用一下。</p>
+<p>　　2、<strong>连接点</strong>　　– JoinPoint</p>
+<p> 　　　　就是 spring 允许你使用通知的地方，那可真就多了，基本每个方法的前，后（两者都有也行），或抛出异常时都可以是连接点，spring 的话只支持方法连接点。和方法有关的前前后后（抛出异常），都是连接点。<strong>一个类的所有方法前、后、抛出异常时等都是连接点。</strong></p>
+<p>　　3、<strong>切入点</strong>　　– Pointcut</p>
+<p>　　　　上面说的连接点的基础上，来定义切入点，你的一个类里，有15个方法，那就有几十个连接点了对把，但是你并不想在所有方法附近都使用通知（使用叫织入，下面再说），你只想让其中的几个，在调用这几个方法之前，之后或者抛出异常时干点什么，那么就用切点来定义这几个方法，让切点来筛选连接点，选中那几个你想要的方法。（比如需要开启事务的只是“ save <em> ”、“ update </em> ”..等等这些方法）。<strong>切入点就是定义了哪个类里面的哪些方法的会得到通知</strong>。</p>
+<p>　　4、<strong>切面</strong>　　– Aspect</p>
+<p>　　　　<strong>切面是通知和切入点的结合</strong>。现在发现了吧，没连接点什么事情，连接点就是为了让你好理解切点，搞出来的，明白这个概念就行了。<strong>通知说明了干什么</strong>和什么时候干（什么时候通过方法名中的before,after，around等就能知道），而<strong>切入点说明了在哪干</strong>（指定到底是哪个方法），这就是一个完整的切面定义。</p>
+<p>　　5、<strong>织入</strong>　　– weaving</p>
+<p>　　　　<strong>把切面应用到目标对象来创建新的代理对象的过程。</strong>可以在编译时、类加载时、运行时完成的织入，spring 采用的是 <strong>在运行时完成织入</strong>。</p>
+<p>　　6、<strong>引入</strong>　　– introduction</p>
+<p>　　　　允许我们向现有的类添加新方法属性。这不就是把切面（也就是新方法属性：通知定义的）用到目标类中吗~</p>
+<p>　　7、<strong>目标</strong>　　– target</p>
+<p>　　　　引入中所提到的目标类，也就是<strong>要被通知的对象</strong>，<strong>也就是真正的业务逻辑</strong>，他可以在毫不知情的情况下，被咱们织入切面。而自己专注于业务本身的逻辑。</p>
+<p>　　8、<strong>AOP 的代理</strong>　　– AOP Proxy</p>
+<p>　　　　<strong>目标对象被织入增强后产生的结果类。</strong>我的理解它是 spring 为了骗过 jvm 的类型检查，搞出来的一个伪装类。</p>
+<p>　　　　spring 伪装采用了两种方式：</p>
+<p>　　　　① 实现和目标类相同的接口　　– 与目标类为双胞胎兄弟（要找我哥办事，弟弟我冒充哥哥收点礼物，再让我哥给你办事~）</p>
+<p>　　　　② 生成子类调用　　– 给目标类当儿子（学会了爸爸的本事，都找我办就好了，但是我要先收点礼物~）</p>
+<p>在Spring的AOP编程中:如果加入容器的目标对象有实现接口,用JDK代理;如果目标对象没有实现接口,用Cglib代理</p>
+<h1 id="Java的代理模式"><a href="#Java的代理模式" class="headerlink" title="Java的代理模式"></a>Java的代理模式</h1><h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类.</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><ul>
+<li>代理对象,不需要实现接口</li>
+<li>代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(ClassLoader loader, Class&lt;?&gt;[] interfaces,InvocationHandler h )</span></span></span><br></pre></td></tr></table></figure>
+<p>参数含义：</p>
+<ul>
+<li><code>ClassLoader loader,</code>:指定当前目标对象使用类加载器,获取加载器的方法是固定的</li>
+<li><code>Class&lt;?&gt;[] interfaces,</code>:目标对象实现的接口的类型,使用泛型方式确认类型</li>
+<li><code>InvocationHandler h</code>:事件处理,执行目标对象的方法时,会触发事件处理器的方法,会把当前执行目标对象的方法作为参数传入</li>
+</ul>
+<h3 id="Cglib代理"><a href="#Cglib代理" class="headerlink" title="Cglib代理"></a>Cglib代理</h3><p>上面的静态代理和动态代理模式都是要求目标对象是实现一个接口的目标对象,但是有时候目标对象只是一个单独的对象,并没有实现任何的接口,这个时候就可以使用以目标对象子类的方式类实现代理,这种方法就叫做:Cglib代理</p>
+<p>Cglib代理,也叫作子类代理,它是在内存中构建一个子类对象从而实现对目标对象功能的扩展.</p>
+<ul>
+<li>JDK的动态代理有一个限制,就是使用动态代理的对象必须实现一个或多个接口,如果想代理没有实现接口的类,就可以使用Cglib实现.</li>
+<li>Cglib是一个强大的高性能的代码生成包,它可以在运行期扩展java类与实现java接口.它广泛的被许多AOP的框架使用,例如Spring AOP和synaop,为他们提供方法的interception(拦截)</li>
+<li>Cglib包的底层是通过使用一个小而块的字节码处理框架ASM来转换字节码并生成新的类.不鼓励直接使用ASM,因为它要求你必须对JVM内部结构包括class文件的格式和指令集都很熟悉.</li>
+</ul>
+<p>Cglib子类代理实现方法:</p>
+<ul>
+<li>需要引入cglib的jar文件,但是Spring的核心包中已经包括了Cglib功能,所以直接引入<code>pring-core-3.2.5.jar</code>即可.</li>
+<li>引入功能包后,就可以在内存中动态构建子类</li>
+<li>代理的类不能为final,否则报错</li>
+<li>目标对象的方法如果为final/static,那么就不会被拦截,即不会执行目标对象额外的业务方法.</li>
+</ul>
+<h1 id="Spring-循环引用"><a href="#Spring-循环引用" class="headerlink" title="Spring 循环引用"></a>Spring 循环引用</h1><p>当Spring容器在创建A时，会发现其引用了B，从而会先去创建B。同样的，创建B时，会先去创建C，而创建C时，又先去创建A。最后A、B、C之间互相等待，谁都没法创建成功。</p>
+<p>要想打破这个环，那么这个环中至少需要有一个bean可以在自身的依赖还没有得到满足前，就能够被创建出来（最起码要被实例化出来，可以先不注入其需要的依赖）。这种bean只能是通过属性注入依赖的类，因为它们可以先使用默认构造器创建出实例，然后再通过setter方法注入依赖。而通过构造器注入依赖的类，在它的依赖没有被满足前，无法被实例化。而且这个bean，还必须是singleton，不能是prototype。</p>
+<p>Spring容器启动后，如果我们去获取singletonA，那么容器的操作步骤大致如下：</p>
+<ul>
+<li>尝试创建bean singletonA，发现singletonA是singleton，且不是通过构造器注入依赖，那么先使用默认构造器创建一个A的实例，并保存对它的引用，并且将singletonA标记为“正在创建中的singleton”。然后发现singletonA依赖了singletonB，所以尝试创建singletonB。</li>
+<li>尝试创建bean singletonB，发现singletonB是singleton，且不是通过构造器注入依赖，那么先使用默认构造器创建一个B的实例，并保存对它的引用，并且将singletonB标记为“正在创建中的singleton”。然后发现singletonB依赖了singletonA，所以尝试创建singletonA。</li>
+<li>尝试创建singletonA，注意，这时Spring容器发现singletonA“正在创建中”，那么就不会再去创建singletonA，而是返回容器之前保存了的对singletonA的引用。</li>
+<li>容器将singletonA通过setter方法注入到singletonB，从而singletonB完成创建。</li>
+<li>容器将singletonB通过setter方法注入到singletonA，从而singletonA完成创建。</li>
+</ul>
+<p>上述步骤，最重要的是第1步和第3步。在第1步中，容器会保存对singletonA的引用，在第3步中，再返回对singletonA的引用，从而可以成功创建那些依赖了singletonA的bean（本例中是singletonB）。这样，循环依赖的环就在singletonA这个点这里被打破。</p>
+<p><strong>那为什么prototype不能成为打破这个环的一个点呢？原因就在于Spring容器只会对singleton保存引用，而对于prototype，并不会对其保存引用，这就导致在第3步中并不能获得之前创建的bean（因为引用不到它）。</strong></p>
+<p>至于为什么容器不对prototype保存引用，那就涉及到singleton和portotpye的概念，如果也对prototype保存引用，那么其实它就变成了singleton。可以看一下Spring作用域。</p>
+<p>按道理，在循环依赖的环里，只要有一个bean，是通过属性注入依赖，并且是singleton，那么这个环就可以被打破，无论获取他们的顺序是怎样。但是我们在第五节得出过结论“只有当获取的第一个bean是通过属性注入依赖的singleton时，才会成功”，为什么会这样呢？这就和Spring的实现有关了，当Spring容器遍历那些循环依赖的bean时，只要遍历到那种已经遍历过一次的bean，并且它们不是通过属性注入依赖的singleton时，就会直接抛出BeanCurrentlyInCreationException异常。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/03/20/20190323/">Spring 相关</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
+        <p><span>发布时间:</span>2019年03月20日 - 22时35分</p>
+        <p><span>最后更新:</span>2019年03月26日 - 18时58分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/20/20190323/" title="Spring 相关">http://superactivWzj.github.io/2019/03/20/20190323/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/03/20/20190323/　　作者: Wzj" title></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2019/03/20/20190326/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          分布式的一些算法
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring-Bean-的生命周期"><span class="toc-number">1.</span> <span class="toc-text">Spring Bean 的生命周期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bean的作用域"><span class="toc-number">2.</span> <span class="toc-text">Bean的作用域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bean自动装配的区别"><span class="toc-number">3.</span> <span class="toc-text">Bean自动装配的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring（数据库）事务隔离级别分为四种（级别递减）："><span class="toc-number">4.</span> <span class="toc-text">spring（数据库）事务隔离级别分为四种（级别递减）：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring事务传播"><span class="toc-number">5.</span> <span class="toc-text">Spring事务传播</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DispatherServlet"><span class="toc-number">6.</span> <span class="toc-text">DispatherServlet</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springmvc-处理流程"><span class="toc-number">7.</span> <span class="toc-text">springmvc 处理流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IOC"><span class="toc-number">8.</span> <span class="toc-text">IOC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AOP"><span class="toc-number">9.</span> <span class="toc-text">AOP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java的代理模式"><span class="toc-number">10.</span> <span class="toc-text">Java的代理模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#静态代理"><span class="toc-number">10.0.1.</span> <span class="toc-text">静态代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态代理"><span class="toc-number">10.0.2.</span> <span class="toc-text">动态代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cglib代理"><span class="toc-number">10.0.3.</span> <span class="toc-text">Cglib代理</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring-循环引用"><span class="toc-number">11.</span> <span class="toc-text">Spring 循环引用</span></a></li>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'xxxx',
+      conf: 'xxxxxxxxx'
+    });
+  </script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/03/20/20190326/" title="上一篇: 分布式的一些算法">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190324/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190325/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190326/">分布式的一些算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190323/">Spring 相关</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 Wzj
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/superactivWzj" target="_blank">Blog</a> 
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
