@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://superactivWzj.github.io/"/>
-  <updated>2019-03-26T11:07:49.704Z</updated>
+  <updated>2019-04-03T13:17:28.028Z</updated>
   <id>http://superactivWzj.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gitignore push后添加</title>
+    <link href="http://superactivWzj.github.io/2019/04/03/gitignore/"/>
+    <id>http://superactivWzj.github.io/2019/04/03/gitignore/</id>
+    <published>2019-04-03T13:16:37.000Z</published>
+    <updated>2019-04-03T13:17:28.028Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong> gitignore push后添加：</strong> <excerpt in index | 首页摘要><br>.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：<br><a id="more"></a></excerpt></p><p><the rest of contents | 余下全文></the></p><h1 id="gitignore"><a href="#gitignore" class="headerlink" title="gitignore"></a>gitignore</h1><p><strong>一定要养成在项目开始就创建.gitignore文件的习惯</strong></p><p>突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'update .gitignore'</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt; gitignore push后添加：&lt;/strong&gt; &lt;excerpt in index | 首页摘要&gt;&lt;br&gt;.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://superactivWzj.github.io/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis 相关</title>
