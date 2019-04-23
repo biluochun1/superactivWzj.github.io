@@ -7,20 +7,20 @@
   
   
   
-  <title>Redis 相关 | Wzj&#39;s blog</title>
+  <title>linux command | Wzj&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis 相关： 前几天面试准备的Redis">
-<meta name="keywords" content="Redis">
+  <meta name="description" content="linux command： 总结一些linux命令">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis 相关">
-<meta property="og:url" content="http://superactivWzj.github.io/2019/03/20/20190325/index.html">
+<meta property="og:title" content="linux command">
+<meta property="og:url" content="http://superactivWzj.github.io/2019/04/17/linux-command/index.html">
 <meta property="og:site_name" content="Wzj&#39;s blog">
-<meta property="og:description" content="Redis 相关： 前几天面试准备的Redis">
+<meta property="og:description" content="linux command： 总结一些linux命令">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-26T11:07:49.704Z">
+<meta property="og:updated_time" content="2019-04-23T09:01:12.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis 相关">
-<meta name="twitter:description" content="Redis 相关： 前几天面试准备的Redis">
+<meta name="twitter:title" content="linux command">
+<meta name="twitter:description" content="linux command： 总结一些linux命令">
   
   
     <link rel="icon" href="/img/avatar.png">
@@ -219,11 +219,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-20190325" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-linux-command" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/20/20190325/" class="article-date">
-      <time datetime="2019-03-20T14:35:37.000Z" itemprop="datePublished">2019-03-20</time>
+      <a href="/2019/04/17/linux-command/" class="article-date">
+      <time datetime="2019-04-17T13:16:37.000Z" itemprop="datePublished">2019-04-17</time>
 </a>
 
     </div>
@@ -237,7 +237,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Redis 相关
+      linux command
     </h1>
   
 
@@ -249,7 +249,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -259,70 +259,33 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><strong> Redis 相关：</strong> <excerpt in index | 首页摘要><br>前几天面试准备的Redis<br><a id="more"></a></excerpt></p>
+        <p><strong> linux command：</strong> <excerpt in index | 首页摘要><br>总结一些linux命令<br><a id="more"></a></excerpt></p>
 <p><the rest of contents | 余下全文></the></p>
-<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="Redis与Memcached的区别与比较"><a href="#Redis与Memcached的区别与比较" class="headerlink" title="Redis与Memcached的区别与比较"></a>Redis与Memcached的区别与比较</h2><p>  1 、Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。memcache支持简单的数据类型，String。</p>
-<p>  2 、Redis支持数据的备份，即master-slave模式的数据备份。</p>
-<p>  3 、Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用,而Memecache把数据全部存在内存之中</p>
-<p>  4、 redis的速度比memcached快很多</p>
-<p>  5、Memcached是多线程，非阻塞IO复用的网络模型；Redis使用单线程的IO复用模型。</p>
-<h2 id="Redis常见的数据结构"><a href="#Redis常见的数据结构" class="headerlink" title="Redis常见的数据结构"></a>Redis常见的数据结构</h2><p>  String</p>
-<p>  String数据结构是简单的key-value类型，value其实不仅可以是String，也可以是数字。  常规key-value缓存应用;常规计数：微博数，粉丝数等。</p>
-<p>  Hash</p>
-<p>  Hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。 比如我们可以Hash数据结构来存储用户信息，商品信息等等。</p>
-<p>  List</p>
-<p>  list就是链表，Redis list的应用场景非常多，也是Redis最重要的数据结构之一，比如微博的关注列表，粉丝列表，最新消息排行等功能都可以用Redis的list结构来实现。</p>
-<p>  Set</p>
-<p>  set对外提供的功能与list类似是一个列表的功能，特殊之处在于set是可以自动排重的。</p>
-<p>  在微博应用中，可以将一个用户所有的关注人存在一个集合中，将其所有粉丝存在一个集合。Redis可以非常方便的实现如共同关注、共同喜好、二度好友等功能。</p>
-<p>  SortedSet</p>
-<p>  和set相比，sorted set增加了一个权重参数score，使得集合中的元素能够按score进行有序排列。举例： 在直播系统中，实时排行信息包含直播间在线用户列表，各种礼物排行榜，弹幕消息（可以理解为按消息维度的消息排行榜）等信息，适合使用Redis中的SortedSet结构进行存储。</p>
-<hr>
-<p><strong>从宏观角度回顾一下Redis实现高可用相关的技术。它们包括：持久化、复制、哨兵和集群，其主要作用和解决的问题是</strong>：</p>
-<ul>
-<li>持久化：持久化是最简单的高可用方法(有时甚至不被归为高可用的手段)，主要作用是数据备份，即将数据存储在硬盘，保证数据不会因进程退出而丢失。</li>
-<li>复制：复制是高可用Redis的基础，哨兵和集群都是在复制基础上实现高可用的。复制主要实现了数据的多机备份，以及对于读操作的负载均衡和简单的故障恢复。缺陷：故障恢复无法自动化；写操作无法负载均衡；存储能力受到单机的限制。</li>
-<li>哨兵：在复制的基础上，哨兵实现了自动化的故障恢复。缺陷：写操作无法负载均衡；存储能力受到单机的限制。</li>
-<li>集群：通过集群，Redis解决了写操作无法负载均衡，以及存储能力受到单机限制的问题，实现了较为完善的高可用方案。</li>
-</ul>
-<hr>
-<h2 id="redis有哪些数据淘汰策略？？？"><a href="#redis有哪些数据淘汰策略？？？" class="headerlink" title="redis有哪些数据淘汰策略？？？"></a>redis有哪些数据淘汰策略？？？</h2><p>  volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰 </p>
-<p>  volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰 </p>
-<p>  volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰 </p>
-<p>  allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰 </p>
-<p>  allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰 </p>
-<p>  no-enviction（驱逐）：禁止驱逐数据</p>
-<p>  <em>默认的内存策略是noeviction，在Redis中LRU算法是一个近似算法，默认情况下，Redis随机挑选5个键，并且从中选取一个最近最久未使用的key进行淘汰，在配置文件中可以通过maxmemory-samples的值来设置redis需要检查key的个数,但是栓查的越多，耗费的时间也就越久,但是结构越精确(也就是Redis从内存中淘汰的对象未使用的时间也就越久~),设置多少，综合权衡吧~~~</em></p>
-<h2 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h2><p>redis 支持两种持久化方式，一种是 Snapshotting（快照）也是默认方式，另一种是 Append-only file（缩写 aof）的方式。</p>
-<p>快照是默认的持久化方式。这种方式是就是将内存中数据以快照的方式写入到二进制文件中,默认的文件名为dump.rdb。可以通过配置设置自动做快照持久化的方式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.redis 调用 fork,现在有了子进程和父进程。</span><br><span class="line">2. 父进程继续处理 client 请求，子进程负责将内存内容写入到临时文件。由于 os 的实时复制机制（ copy on write)父子进程会共享相同的物理页面，当父进程处理写请求时 os 会为父进程要修改的页面创建副本，而不是写共享的页面。所以子进程地址空间内的数据是 fork时刻整个数据库的一个快照。</span><br><span class="line">3.当子进程将快照写入临时文件完毕后，用临时文件替换原来的快照文件，然后子进程退出。client 也可以使用 save 或者 bgsave 命令通知 redis 做一次快照持久化。 save 操作是在主线程中保存快照的，由于 redis 是用一个主线程来处理所有 client 的请求，这种方式会阻塞所有client 请求。所以不推荐使用。另一点需要注意的是，每次快照持久化都是将内存数据完整写入到磁盘一次，并不是增量的只同步变更数据。如果数据量大的话，而且写操作比较多，必然会引起大量的磁盘 io 操作，可能会严重影响性能。</span><br></pre></td></tr></table></figure>
-<p>由于快照方式是在一定间隔时间做一次的，所以如果 redis 意外 down 掉的话，就会丢失最后一次快照后的所有修改。</p>
-<p>如果应用要求不能丢失任何修改的话，可以采用 aof 持久化方式。下面介绍 Append-only file:aof 比快照方式有更好的持久化性，是由于在使用 aof 持久化方式时,redis 会将每一个收到的写命令都通过 write 函数追加到文件中(默认是 appendonly.aof)。当 redis 重启时会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当然由于 os 会在内核中缓存 write 做的修改，所以可能不是立即写到磁盘上。这样 aof 方式的持久化也还是有可能会丢失部分修改。不过我们可以通过配置文件告诉 redis 我们想要通过 fsync 函数强制 os 写入到磁盘的时机。</p>
-<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><p>全量复制：</p>
-<p>Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Master上的所有数据都复制一份。具体步骤如下： </p>
-<p>　　1）从服务器连接主服务器，发送SYNC命令； </p>
-<p>　　2）主服务器接收到SYNC命名后，开始执行BGSAVE命令生成RDB文件并使用缓冲区记录此后执行的所有写命令； </p>
-<p>　　3）主服务器BGSAVE执行完后，向所有从服务器发送快照文件，并在发送期间继续记录被执行的写命令； </p>
-<p>　　4）从服务器收到快照文件后丢弃所有旧数据，载入收到的快照； </p>
-<p>　　5）主服务器快照发送完毕后开始向从服务器发送缓冲区中的写命令； </p>
-<p>　　6）从服务器完成对快照的载入，开始接收命令请求，并执行来自主服务器缓冲区的写命令； </p>
-<p>增量同步：</p>
-<p>Redis增量复制是指Slave初始化后开始正常工作时主服务器发生的写操作同步到从服务器的过程。 </p>
-<p>增量复制的过程主要是主服务器每执行一个写命令就会向从服务器发送相同的写命令，从服务器接收并执行收到的写命令。</p>
-<p>主从复制策略：</p>
-<p>主从刚刚连接的时候，进行全量同步；全同步结束后，进行增量同步。当然，如果有需要，slave 在任何时候都可以发起全量同步。redis 策略是，无论如何，首先会尝试进行增量同步，如不成功，要求从机进行全量同步。</p>
-<h2 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h2><p>关于哨兵的原理，关键是了解以下几个概念。</p>
-<p>（1）定时任务：每个哨兵节点维护了3个定时任务。定时任务的功能分别如下：通过向主从节点发送info命令获取最新的主从结构；通过发布订阅功能获取其他哨兵节点的信息；通过向其他节点发送ping命令进行心跳检测，判断是否下线。</p>
-<p>（2）主观下线：在心跳检测的定时任务中，如果其他节点超过一定时间没有回复，哨兵节点就会将其进行主观下线。顾名思义，主观下线的意思是一个哨兵节点“主观地”判断下线；与主观下线相对应的是客观下线。</p>
-<p>（3）客观下线：哨兵节点在对主节点进行主观下线后，会通过sentinel is-master-down-by-addr命令询问其他哨兵节点该主节点的状态；如果判断主节点下线的哨兵数量达到一定数值，则对该主节点进行客观下线。</p>
-<p><strong>需要特别注意的是，客观下线是主节点才有的概念；如果从节点和哨兵节点发生故障，被哨兵主观下线后，不会再有后续的客观下线和故障转移操作。</strong></p>
-<p>（4）选举领导者哨兵节点：当主节点被判断客观下线以后，各个哨兵节点会进行协商，选举出一个领导者哨兵节点，并由该领导者节点对其进行故障转移操作。</p>
-<p>监视该主节点的所有哨兵都有可能被选为领导者，选举使用的算法是Raft算法；Raft算法的基本思路是先到先得：即在一轮选举中，哨兵A向B发送成为领导者的申请，如果B没有同意过其他哨兵，则会同意A成为领导者。选举的具体过程这里不做详细描述，一般来说，哨兵选择的过程很快，谁先完成客观下线，一般就能成为领导者。</p>
-<p>（5）故障转移：选举出的领导者哨兵，开始进行故障转移操作，该操作大体可以分为3个步骤：</p>
-<ul>
-<li>在从节点中选择新的主节点：选择的原则是，首先过滤掉不健康的从节点；然后选择优先级最高的从节点(由slave-priority指定)；如果优先级无法区分，则选择复制偏移量最大的从节点；如果仍无法区分，则选择runid最小的从节点。</li>
-<li>更新主从状态：通过slaveof no one命令，让选出来的从节点成为主节点；并通过slaveof命令让其他节点成为其从节点。</li>
-<li>将已经下线的主节点(即6379)设置为新的主节点的从节点，当6379重新上线后，它会成为新的主节点的从节点。</li>
+<h1 id="linux-命令"><a href="#linux-命令" class="headerlink" title="linux 命令"></a>linux 命令</h1><ul>
+<li><p>统计当前文件夹下文件的个数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep "^-"|wc -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>统计当前文件夹下目录个数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep "^d"|wc -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>压缩文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tar -czf jpg.tar.gz *.jpg</span><br><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名</span><br><span class="line">-z：有gzip属性的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按每行切割文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">split -d -num filename prefix</span><br><span class="line">-d 代表以数字结尾命名</span><br><span class="line">num 表示每个文件行数</span><br><span class="line">filename 拆分的文件</span><br><span class="line">prefix 拆分后文件命名前缀</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>grep查找文件中是否包含字符串</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep 选项 pattern filename</span><br><span class="line">-c,—count 只打印匹配的行数，不显示匹配的内容</span><br><span class="line">-i，—ignore-case 忽略大小写差别</span><br><span class="line">-l，—files-with-matches 打印匹配模板的文件清单</span><br><span class="line">-n，—line-number 在匹配的行前面打印行号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nohup 和 &amp;后台运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nohup</span><br><span class="line">不断地运行命令</span><br><span class="line">&amp;</span><br><span class="line">在后台运行</span><br><span class="line">一般两个一起用：nohup command &amp;</span><br><span class="line">查看运行的后台进程：jobs -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>awk 分隔符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk  -F: '&#123;print $1,$3,$6&#125;' OFS="\t" /etc/passwd</span><br><span class="line">-F指定输入分隔符</span><br><span class="line">OFS指定输出分隔符</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ulimit 用来限制系统用户对shell资源的访问 之前遇到 段错误 调试 生成core文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据段长度：ulimit -d unlimited</span><br><span class="line">最大内存大小：ulimit -m unlimited</span><br><span class="line">堆栈大小：ulimit -s unlimited</span><br><span class="line">产生core文件，就是程序运行发行段错误时的文件：</span><br><span class="line">ulimit -c unlimited</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
       
@@ -332,13 +295,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/20/20190325/">Redis 相关</a></p>
+        <p><span>本文标题:</span><a href="/2019/04/17/linux-command/">linux command</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
-        <p><span>发布时间:</span>2019年03月20日 - 22时35分</p>
-        <p><span>最后更新:</span>2019年03月26日 - 19时07分</p>
+        <p><span>发布时间:</span>2019年04月17日 - 21时16分</p>
+        <p><span>最后更新:</span>2019年04月23日 - 17时01分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/20/20190325/" title="Redis 相关">http://superactivWzj.github.io/2019/03/20/20190325/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/03/20/20190325/　　作者: Wzj" title></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/04/17/linux-command/" title="linux command">http://superactivWzj.github.io/2019/04/17/linux-command/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/04/17/linux-command/　　作者: Wzj" title></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -349,18 +312,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/04/03/gitignore/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/20/Future/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          gitignore push后添加
+          Future Promise
         
       </div>
     </a>
   
   
-    <a href="/2019/03/20/20190324/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JAVA JUC</div>
+    <a href="/2019/04/13/equals-hashcode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为什么要重写equals和hashCode方法</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -372,7 +335,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis"><span class="toc-number">1.</span> <span class="toc-text">Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis与Memcached的区别与比较"><span class="toc-number">1.1.</span> <span class="toc-text">Redis与Memcached的区别与比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis常见的数据结构"><span class="toc-number">1.2.</span> <span class="toc-text">Redis常见的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis有哪些数据淘汰策略？？？"><span class="toc-number">1.3.</span> <span class="toc-text">redis有哪些数据淘汰策略？？？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-持久化"><span class="toc-number">1.4.</span> <span class="toc-text">Redis 持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主从复制"><span class="toc-number">1.5.</span> <span class="toc-text">主从复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#哨兵"><span class="toc-number">1.6.</span> <span class="toc-text">哨兵</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-命令"><span class="toc-number">1.</span> <span class="toc-text">linux 命令</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -445,13 +408,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/04/03/gitignore/" title="上一篇: gitignore push后添加">
+            <a href="/2019/04/20/Future/" title="上一篇: Future Promise">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2019/03/20/20190324/" title="下一篇: JAVA JUC">
+            <a href="/2019/04/13/equals-hashcode/" title="下一篇: 为什么要重写equals和hashCode方法">
                 <i class="fa fa-angle-right"></i>
             </a>
         
