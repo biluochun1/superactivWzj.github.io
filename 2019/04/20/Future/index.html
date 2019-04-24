@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Wzj&#39;s blog">
 <meta property="og:description" content="Future Promise： 理解future">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://superactivwzj.github.io/2019/04/public/img/post_photo/1555775738_56_w774_h302.png">
-<meta property="og:image" content="http://superactivwzj.github.io/2019/04/public/img/post_photo/1555786867_85_w496_h558.png">
-<meta property="og:updated_time" content="2019-04-24T01:59:11.116Z">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/04/20/Future/Future/1555775738_56_w774_h302.png">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/04/20/Future/Future/1555786867_85_w496_h558.png">
+<meta property="og:updated_time" content="2019-04-24T02:07:37.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Future Promise">
 <meta name="twitter:description" content="Future Promise： 理解future">
-<meta name="twitter:image" content="http://superactivwzj.github.io/2019/04/public/img/post_photo/1555775738_56_w774_h302.png">
+<meta name="twitter:image" content="http://superactivwzj.github.io/2019/04/20/Future/Future/1555775738_56_w774_h302.png">
   
   
     <link rel="icon" href="/img/avatar.png">
@@ -265,14 +265,14 @@
         <p><strong> Future Promise：</strong> <excerpt in index | 首页摘要><br>理解future<br><a id="more"></a></excerpt></p>
 <the rest of contents | 余下全文>
 
-<h1 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h1><p>Future的意思是未来、期货。如果有一个事情需要很长时间才能获取结果，与其一直等待，不如先拿一张提货单。获取提货单通常耗时很短，这里的提货单即Future。获取Future对象的线程稍后会使用该Future对象来获取运行结果。如果运行结果已经出来，则可以直接获取，否则还要继续等待结果出来。这跟在办公室用App下单后凭借手机上的订单号下楼去拿喜茶时一样，如果喜茶已经做好了可以直接拿走，不然还要继续等待。<br><img src="../../public/img/post_photo/1555775738_56_w774_h302.png" alt="Future模式类图"></p>
+<h1 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h1><p>Future的意思是未来、期货。如果有一个事情需要很长时间才能获取结果，与其一直等待，不如先拿一张提货单。获取提货单通常耗时很短，这里的提货单即Future。获取Future对象的线程稍后会使用该Future对象来获取运行结果。如果运行结果已经出来，则可以直接获取，否则还要继续等待结果出来。这跟在办公室用App下单后凭借手机上的订单号下楼去拿喜茶时一样，如果喜茶已经做好了可以直接拿走，不然还要继续等待。<br><img src="Future/1555775738_56_w774_h302.png" alt="Future模式类图"></p>
 <ul>
 <li>Client：请求者，负责向FutureService发出请求，并会立即接收到结果凭据。</li>
 <li>Future：封装异步任务处理结果的凭据对象，负责检查异步任务处理是否完毕和返回异步任务处理结果。</li>
 <li>FutureTask：Future的具体实现类。</li>
 <li>FutureService：负责真正执行异步任务，并将处理结果设置到相应的Future实例中。</li>
 </ul>
-<p><img src="../../public/img/post_photo/1555786867_85_w496_h558.png" alt="Future模式时序图"><br>第1、2步：Client启动并创建任务处理对象FutureService。<br>第3、4、5步：Client提交一个任务，FutureService立即创建一个Future对象并返回给Client。<br>第6步：任务处理完毕后FutureService将结果设置到Future对象中。<br>第7步：Client通过Future对象获取处理结果。</p>
+<p><img src="Future/1555786867_85_w496_h558.png" alt="Future模式时序图"><br>第1、2步：Client启动并创建任务处理对象FutureService。<br>第3、4、5步：Client提交一个任务，FutureService立即创建一个Future对象并返回给Client。<br>第6步：任务处理完毕后FutureService将结果设置到Future对象中。<br>第7步：Client通过Future对象获取处理结果。</p>
 <h1 id="Netty-Future"><a href="#Netty-Future" class="headerlink" title="Netty Future"></a>Netty Future</h1><p>Netty中Future的方法如下（未全部列出）：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步操作完成且正常终止</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isSuccess</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 异步操作是否可以取消</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isCancellable</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 异步操作失败的原因</span></span><br><span class="line"><span class="function">Throwable <span class="title">cause</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 添加一个监听者，异步操作完成时回调，类比javascript的回调函数</span></span><br><span class="line"><span class="function">Future&lt;V&gt; <span class="title">addListener</span><span class="params">(GenericFutureListener&lt;? extends Future&lt;? <span class="keyword">super</span> V&gt;&gt; listener)</span></span>;</span><br><span class="line"><span class="function">Future&lt;V&gt; <span class="title">removeListener</span><span class="params">(GenericFutureListener&lt;? extends Future&lt;? <span class="keyword">super</span> V&gt;&gt; listener)</span></span>;</span><br><span class="line"><span class="comment">// 阻塞直到异步操作完成</span></span><br><span class="line"><span class="function">Future&lt;V&gt; <span class="title">await</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"><span class="comment">// 同上，但异步操作失败时抛出异常</span></span><br><span class="line"><span class="function">Future&lt;V&gt; <span class="title">sync</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"><span class="comment">// 非阻塞地返回异步结果，如果尚未完成返回null</span></span><br><span class="line"><span class="function">V <span class="title">getNow</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 <p>值得注意的是sync与await的区别，它们都是同步阻塞，不同之处是当异步操作失败时，sync将会抛出错误异常，而await不会；如下是sync源码注释。</p>
@@ -297,7 +297,7 @@
         <p><span>本文标题:</span><a href="/2019/04/20/Future/">Future Promise</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年04月20日 - 21时16分</p>
-        <p><span>最后更新:</span>2019年04月24日 - 09时59分</p>
+        <p><span>最后更新:</span>2019年04月24日 - 10时07分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/04/20/Future/" title="Future Promise">http://superactivWzj.github.io/2019/04/20/Future/</a>
             <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/04/20/Future/　　作者: Wzj" title></span>
