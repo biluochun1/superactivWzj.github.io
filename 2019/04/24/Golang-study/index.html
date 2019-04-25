@@ -7,20 +7,20 @@
   
   
   
-  <title>gitignore push后添加 | Wzj&#39;s blog</title>
+  <title>Golang-study | Wzj&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="gitignore push后添加： .gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：">
-<meta name="keywords" content="Git">
+  <meta name="description" content="Golang-study： 学习 go 过程中的一些问题，记录">
+<meta name="keywords" content="golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gitignore push后添加">
-<meta property="og:url" content="http://superactivWzj.github.io/2019/04/03/gitignore/index.html">
+<meta property="og:title" content="Golang-study">
+<meta property="og:url" content="http://superactivWzj.github.io/2019/04/24/Golang-study/index.html">
 <meta property="og:site_name" content="Wzj&#39;s blog">
-<meta property="og:description" content="gitignore push后添加： .gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：">
+<meta property="og:description" content="Golang-study： 学习 go 过程中的一些问题，记录">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-24T13:28:13.243Z">
+<meta property="og:updated_time" content="2019-04-24T13:34:21.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gitignore push后添加">
-<meta name="twitter:description" content="gitignore push后添加： .gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：">
+<meta name="twitter:title" content="Golang-study">
+<meta name="twitter:description" content="Golang-study： 学习 go 过程中的一些问题，记录">
   
   
     <link rel="icon" href="/img/avatar.png">
@@ -219,11 +219,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-gitignore" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Golang-study" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/04/03/gitignore/" class="article-date">
-      <time datetime="2019-04-03T13:16:37.000Z" itemprop="datePublished">2019-04-03</time>
+      <a href="/2019/04/24/Golang-study/" class="article-date">
+      <time datetime="2019-04-24T13:24:53.000Z" itemprop="datePublished">2019-04-24</time>
 </a>
 
     </div>
@@ -237,7 +237,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      gitignore push后添加
+      Golang-study
     </h1>
   
 
@@ -249,7 +249,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -259,11 +259,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><strong> gitignore push后添加：</strong> <excerpt in index | 首页摘要><br>.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：<br><a id="more"></a></excerpt></p>
-<p><the rest of contents | 余下全文></the></p>
-<h1 id="gitignore"><a href="#gitignore" class="headerlink" title="gitignore"></a>gitignore</h1><p><strong>一定要养成在项目开始就创建.gitignore文件的习惯</strong></p>
-<p>突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m 'update .gitignore'</span><br></pre></td></tr></table></figure>
+        <p><strong> Golang-study：</strong> <excerpt in index | 首页摘要><br>学习 go 过程中的一些问题，记录<br><a id="more"></a></excerpt></p>
+<p><the rest of contents | 余下全文><br><strong>值接收者和引用接收者的方法</strong></the></p>
+<ol>
+<li>不管你的method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针类型进行调用的，编译器会帮你做类型转换。</li>
+<li>在声明一个method的receiver该是指针还是非指针类型时，你需要考虑两方面的因素，第一方面是这个对象本身是不是特别大，如果声明为非指针变量时，调用会产生一次拷贝；第二方面是如果你用指针类型作为receiver，那么你一定要注意，这种指针类型指向的始终是一块内存地址，就算你对其进行了拷贝。</li>
+</ol>
+
       
     </div>
     
@@ -271,13 +273,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/04/03/gitignore/">gitignore push后添加</a></p>
+        <p><span>本文标题:</span><a href="/2019/04/24/Golang-study/">Golang-study</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
-        <p><span>发布时间:</span>2019年04月03日 - 21时16分</p>
-        <p><span>最后更新:</span>2019年04月24日 - 21时28分</p>
+        <p><span>发布时间:</span>2019年04月24日 - 21时24分</p>
+        <p><span>最后更新:</span>2019年04月24日 - 21时34分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/04/03/gitignore/" title="gitignore push后添加">http://superactivWzj.github.io/2019/04/03/gitignore/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/04/03/gitignore/　　作者: Wzj" title></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/04/24/Golang-study/" title="Golang-study">http://superactivWzj.github.io/2019/04/24/Golang-study/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/04/24/Golang-study/　　作者: Wzj" title></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -288,18 +290,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/04/13/equals-hashcode/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/25/python-concurrent-futures/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          为什么要重写equals和hashCode方法
+          python-concurrent.futures
         
       </div>
     </a>
   
   
-    <a href="/2019/03/20/20190325/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Redis 相关</div>
+    <a href="/2019/04/20/Future/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Future Promise</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -311,7 +313,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gitignore"><span class="toc-number">1.</span> <span class="toc-text">gitignore</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -384,13 +386,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/04/13/equals-hashcode/" title="上一篇: 为什么要重写equals和hashCode方法">
+            <a href="/2019/04/25/python-concurrent-futures/" title="上一篇: python-concurrent.futures">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2019/03/20/20190325/" title="下一篇: Redis 相关">
+            <a href="/2019/04/20/Future/" title="下一篇: Future Promise">
                 <i class="fa fa-angle-right"></i>
             </a>
         

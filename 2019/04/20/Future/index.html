@@ -19,7 +19,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://superactivwzj.github.io/2019/04/20/Future/1555775738_56_w774_h302.png">
 <meta property="og:image" content="http://superactivwzj.github.io/2019/04/20/Future/1555786867_85_w496_h558.png">
-<meta property="og:updated_time" content="2019-04-24T02:11:42.003Z">
+<meta property="og:updated_time" content="2019-04-24T13:28:19.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Future Promise">
 <meta name="twitter:description" content="Future Promise： 理解future">
@@ -173,7 +173,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
                     </div>
                 </section>
                 
@@ -285,7 +285,12 @@
 <p>Promise接口继承自Future接口，它提供的setter方法与常见的setter方法大为不同。Promise从Uncompleted—&gt;Completed的状态转变有且只能有一次，也就是说setSuccess和setFailure方法最多只会成功一个，此外，在setSuccess和setFailure方法中会通知注册到其上的监听者。</p>
 <h2 id="AbstractFuture"><a href="#AbstractFuture" class="headerlink" title="AbstractFuture"></a>AbstractFuture</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">    await();</span><br><span class="line"></span><br><span class="line">    Throwable cause = cause();</span><br><span class="line">    <span class="keyword">if</span> (cause == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> getNow();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (cause <span class="keyword">instanceof</span> CancellationException) &#123;</span><br><span class="line">        <span class="keyword">throw</span> (CancellationException) cause;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ExecutionException(cause);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(<span class="keyword">long</span> timeout, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException, TimeoutException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (await(timeout, unit)) &#123;</span><br><span class="line">        Throwable cause = cause();</span><br><span class="line">        <span class="keyword">if</span> (cause == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> getNow();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cause <span class="keyword">instanceof</span> CancellationException) &#123;</span><br><span class="line">            <span class="keyword">throw</span> (CancellationException) cause;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ExecutionException(cause);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> TimeoutException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其内部是重写了JDK中Future接口的get方法，内部通过调用await方法实现同步阻塞等待，Netty中的Future接口中的getNow非阻塞地返回异步结果，如果尚未完成返回null。</p>
-<h2 id="DefaultPromise"><a href="#DefaultPromise" class="headerlink" title="DefaultPromise"></a>DefaultPromise</h2><p>1.创建Promise的子类，实例创建后可以添加监听（保存在listeners中）或阻塞进行等待（waiters计数器，表示等待的线程数）；<br>2.封装Promise到待监听的Task中；<br>3.提交Task到线程执行器executor的队列中；<br>4.线程执行器executor获取Task，并在线程中执行Task，Task执行结束（成功、失败、取消）就会调用Promise中注册的所有listeners以及唤醒所有等待的线程；</p>
+<h2 id="DefaultPromise"><a href="#DefaultPromise" class="headerlink" title="DefaultPromise"></a>DefaultPromise</h2><ol>
+<li>创建Promise的子类，实例创建后可以添加监听（保存在listeners中）或阻塞进行等待（waiters计数器，表示等待的线程数）；</li>
+<li>封装Promise到待监听的Task中；</li>
+<li>提交Task到线程执行器executor的队列中；</li>
+<li>线程执行器executor获取Task，并在线程中执行Task，Task执行结束（成功、失败、取消）就会调用Promise中注册的所有listeners以及唤醒所有等待的线程；</li>
+</ol>
 </the>
       
     </div>
@@ -297,7 +302,7 @@
         <p><span>本文标题:</span><a href="/2019/04/20/Future/">Future Promise</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年04月20日 - 21时16分</p>
-        <p><span>最后更新:</span>2019年04月24日 - 10时11分</p>
+        <p><span>最后更新:</span>2019年04月24日 - 21时28分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/04/20/Future/" title="Future Promise">http://superactivWzj.github.io/2019/04/20/Future/</a>
             <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/04/20/Future/　　作者: Wzj" title></span>
@@ -310,6 +315,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2019/04/24/Golang-study/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Golang-study
+        
+      </div>
+    </a>
   
   
     <a href="/2019/04/17/linux-command/" id="article-nav-older" class="article-nav-link-wrap">
@@ -398,7 +412,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/04/24/Golang-study/" title="上一篇: Golang-study">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
@@ -407,7 +423,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">gitignore push后添加</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190324/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190325/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190326/">分布式的一些算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190323/">Spring 相关</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">gitignore push后添加</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190325/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190324/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190326/">分布式的一些算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190323/">Spring 相关</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
