@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Wzj&#39;s blog">
 <meta property="og:description" content="linux command： 总结一些linux命令">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-25T07:12:39.793Z">
+<meta property="og:updated_time" content="2019-05-14T12:19:39.277Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux command">
 <meta name="twitter:description" content="linux command： 总结一些linux命令">
@@ -170,7 +170,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
                     </div>
                 </section>
                 
@@ -272,8 +272,8 @@
 <li><p>压缩文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tar -czf jpg.tar.gz *.jpg</span><br><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名</span><br><span class="line">-z：有gzip属性的</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>按每行切割文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">split -d -num filename prefix</span><br><span class="line">-d 代表以数字结尾命名</span><br><span class="line">num 表示每个文件行数</span><br><span class="line">filename 拆分的文件</span><br><span class="line">prefix 拆分后文件命名前缀</span><br></pre></td></tr></table></figure>
+<li><p>按每行切割文件,按大小切割</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">split -d -num filename prefix</span><br><span class="line">-d 代表以数字结尾命名</span><br><span class="line">num 表示每个文件行数</span><br><span class="line">filename 拆分的文件</span><br><span class="line">prefix 拆分后文件命名前缀</span><br><span class="line"></span><br><span class="line">切割为500m的文件</span><br><span class="line">split -b 500m filename prefix</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>grep查找文件中是否包含字符串</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep 选项 pattern filename</span><br><span class="line">-c,—count 只打印匹配的行数，不显示匹配的内容</span><br><span class="line">-i，—ignore-case 忽略大小写差别</span><br><span class="line">-l，—files-with-matches 打印匹配模板的文件清单</span><br><span class="line">-n，—line-number 在匹配的行前面打印行号</span><br></pre></td></tr></table></figure>
@@ -283,12 +283,17 @@
 </li>
 <li><p>awk 分隔符</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk  -F: '&#123;print $1,$3,$6&#125;' OFS="\t" /etc/passwd</span><br><span class="line">-F指定输入分隔符</span><br><span class="line">OFS指定输出分隔符</span><br></pre></td></tr></table></figure>
+<p>查找两个文件不同的行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'&#123; if( NR==FNR )&#123; a[$1]=1 &#125; else &#123; if( !($1 in a) )&#123; print "diff:",$1,$2&#125; &#125; &#125;'</span> file1 file2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>ulimit 用来限制系统用户对shell资源的访问 之前遇到 段错误 调试 生成core文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据段长度：ulimit -d unlimited</span><br><span class="line">最大内存大小：ulimit -m unlimited</span><br><span class="line">堆栈大小：ulimit -s unlimited</span><br><span class="line">产生core文件，就是程序运行发行段错误时的文件：</span><br><span class="line">ulimit -c unlimited</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>lsof 查看端口</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i:8080 -l</span><br><span class="line">-l 查看pid</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ping &amp; telnet</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping 192.168.0.1 -t 不停的测试192.168.0.1</span><br><span class="line">telnet 192.168.0.1 80 可以测试端口</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </the>
@@ -302,7 +307,7 @@
         <p><span>本文标题:</span><a href="/2019/04/17/linux-command/">linux command</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年04月17日 - 21时16分</p>
-        <p><span>最后更新:</span>2019年04月25日 - 15时12分</p>
+        <p><span>最后更新:</span>2019年05月14日 - 20时19分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/04/17/linux-command/" title="linux command">http://superactivWzj.github.io/2019/04/17/linux-command/</a>
             <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/04/17/linux-command/　　作者: Wzj" title></span>
@@ -423,7 +428,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">gitignore push后添加</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190324/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190325/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190326/">分布式的一些算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190323/">Spring 相关</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/08/python-daily/">python-daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">git 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/JUC/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Redis/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Spring/">Spring 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/分布式/">分布式的一些算法</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 

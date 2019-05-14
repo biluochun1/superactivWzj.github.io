@@ -13,14 +13,20 @@
 <meta name="keywords" content="分布式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式的一些算法">
-<meta property="og:url" content="http://superactivWzj.github.io/2019/03/20/20190326/index.html">
+<meta property="og:url" content="http://superactivWzj.github.io/2019/03/20/分布式/index.html">
 <meta property="og:site_name" content="Wzj&#39;s blog">
 <meta property="og:description" content="分布式的一些算法： 入门分布式，看了一些分布式的算法……">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-24T13:28:19.703Z">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/03/20/分布式/raft01.png">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/03/20/分布式/raft02.png">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/03/20/分布式/raft03.png">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/03/20/分布式/raft05.png">
+<meta property="og:image" content="http://superactivwzj.github.io/2019/03/20/分布式/raft06.png">
+<meta property="og:updated_time" content="2019-05-14T12:15:58.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式的一些算法">
 <meta name="twitter:description" content="分布式的一些算法： 入门分布式，看了一些分布式的算法……">
+<meta name="twitter:image" content="http://superactivwzj.github.io/2019/03/20/分布式/raft01.png">
   
   
     <link rel="icon" href="/img/avatar.png">
@@ -170,7 +176,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
                     </div>
                 </section>
                 
@@ -219,10 +225,10 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-20190326" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-分布式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/20/20190326/" class="article-date">
+      <a href="/2019/03/20/分布式/" class="article-date">
       <time datetime="2019-03-20T14:35:37.000Z" itemprop="datePublished">2019-03-20</time>
 </a>
 
@@ -348,6 +354,33 @@
 </ul>
 <p>Splite Vote是因为如果同时有两个候选人向大家邀票，这时通过类似加时赛来解决，两个候选者在一段timeout比如300ms互相不服气的等待以后，因为双方得到的票数是一样的，一半对一半，那么在300ms以后，再由这两个候选者发出邀票，这时同时的概率大大降低，那么首先发出邀票的的候选者得到了大多数同意，成为领导者Leader，而另外一个候选者后来发出邀票时，那些Follower选民已经投票给第一个候选者，不能再投票给它，它就成为落选者了，最后这个落选者也成为普通Follower一员了。</p>
 <p><a href="https://blog.csdn.net/lxlmycsdnfree/article/details/78984752" target="_blank" rel="noopener">https://blog.csdn.net/lxlmycsdnfree/article/details/78984752</a></p>
+<hr>
+<p>2019/05/14 Raft</p>
+<p>raft将系统的一致性（consistency）抽象为每个Node的状态机（stat machine）一致，raft假设每个Node如果初始状态一致，并且每个Node的状态机执行相同的操作序列，那么这些状态机的最终状态将保持一致。这里的状态机看起来比较抽象，可以简单给个例子，比如KV系统，状态机在这里就代表了这个KV系统的所存储的key-value对，状态机一致即要求所有Node上的key集合一样，并且key相同的的value也要一样，并且没有那台机器多一些key或者少一些key。操作序列在这里可以抽象为两种，设置某个key或者删除某个key。</p>
+<p>下图是raft算法的基本原理图。client发出请求给某台server（这里的server是leader，通过选举产生），该leader根据请求信息生成一日志项（log entry，除了包含请求信息，还包括日志编号等信息），写入到本地文件，并将该日志转发给其他server（follower），要求follower复制该日志，当超过半数follower复制并返回成功后，该日志将变成为committed（提交）状态，leader就将该日志应用到状态机，最后再返回给client。raft认为，如果每个server的日志顺序一致，每个日志内的内容一致，那么状态机执行日志后的最终状态也一致。</p>
+<p><img src="raft01.png" alt="raft"></p>
+<p>注意， leader总是会将client的请求写到日志文件中。无论leader还是follower只有committed的日志项才会被应用到状态机（比如follower可能会收到leader的某个日志项，但该日志项最终没有成为committed状态，这种日志不会被follower应用到状态机），另外leader一旦确认某个日志项成为committed状态后，将在后续的心跳中通知follower该日志已经成为committed。这个过程实质就是轻量的2PC过程。</p>
+<h2 id="leader选举"><a href="#leader选举" class="headerlink" title="leader选举"></a>leader选举</h2><p>Step1  初始A/B/C都是follower，每个server都有一个选举定时器，超时后就发起选举<br>Step2  A的选举定时器时间先到，变成candidate，首先投票给自己，vote count=1<br>Step3  A向B/C发起选举请求，要求投票给自己<br>Step4  B/C收到请求后，发现本轮（term）还没有投票过，便同意投票给A，同时B/C的选举定时器被重装<br>Step5  A收到的投票数（vote count，包括A自己）超过半数，A成为leader<br>Step6  A作为leader开始跟follower进行心跳，B/C收到心跳后会重置选举定时器 </p>
+<p>初始化时，每个server默认是follower，每个server都会启动一个选举定时器，如果在超时时间内没有收到leader的心跳或者复制日志请求，该server就认为leader已经死机，将自己角色置为candidate，并向其他server发起选举请求（请求其他server投票给自己，发起者本身会投票给自己），如果有收到超过半数（包括发起者自己）的投票同意，则转换为leader。在超时之前，如果有收到任何其他server的请求（假设某个状态，leader的状态OK，leader会发心跳给每个follower），则重置该定时器（定时器重新从0开始计时）。一般情况下心跳间隔（heartbeat interval）要比选举定时器小很多。</p>
+<p>(1) 有没有可能两个server同时发出选举请求？<br>有这种可能，但raft要求在一个选举周期内，只能投票给一个server，如果在一个选举周期内收到多个server的投票请求，只会投票给第一个server，后续其他server的都会拒绝。</p>
+<p>(2) 什么是一个选举周期？<br>raft中用term（一个整形值）表示一个选举周期。 server收到的选举请求参数中带有请求者的term信息， 如果server发现这个term我已经投过票了，那其他server相同term的选举请求就会被拒绝。每个server都保存有term信息，正常情况下，所有server的term是一致的，但可能出现某些server由于故障，比如死机很久后又恢复，其保存的term值可能已经远小于其他server。每个server的term更新逻辑如下，如果server收到的包（投票请求或者复制日志请求或者某请求的返回包）信息中的term比自己当前的term要大，则更新自己的term为包信息信息中的term，如果当前是leader或者candidate，则降级为follower。某台candidate发起选举的时候，将当前自己的term 值加1，作为发起选举请求的term参数，一旦选举确认leader后，之后的日志项中的term信息都是该term值，直到发送下次选举产生新term。Server当前的term会持久化存储，机器重启后会从文件中读取。</p>
+<p>(3) follower什么情况下会投票给candidate？<br>除了之前说的，相同term的请求，follower只会投票给第一个candidate外，follower还会判断follower自己的term是否小于请求者的term，如果不满足，则投票反对，并将自己的term信息告知请求者，candidate收到后，发现有比自己大的term存在，立即降级为follower。</p>
+<p>(4) 如果2个server同时发起请求，其他server可能会投票给不同的server，这样2个发起者都可能收到不超过半数的投票，raft是如何处理的呢？<br>raft中将这种情况描述为split vote。系统中有四个节点A/B/C/D，A和C同时发起投票，D投票给A，B投票给C，这样A/C都没有获取超过半数（&gt;2票）的投票，都不能从candidate转换为leader。raft中，A/C将等到下一个选举定时器超时到来后，再重新发起投票（term值会再次增加），A/C发起投票的时间将会被错开（这里通过设置选举超时时间为某个范围内随机数），这样下次再出现split vote的几率几乎为0。</p>
+<p>(5) 系统可能同时存在2个leader吗？<br>有可能。假设系统有五个节点，A/B/C/D/E，A为leader，某个时刻C/D/E可能由于网络原因跟A/B隔离，这样A/B形成孤岛。C/D/E由于收不到leader A的心跳，在选举定时器超时后，将发起选举请求，假设C发起选举投票，C将收到D/E的同意，无法收到A/B的回应，但仍有超过半数的投票（加上C自己是3票），C将成为leader状态，这样系统中A/C同时作为leader存在。如果用户的请求到达A，A请求C/D/E，C/D/E超时，这样A收不到超过半数的回应，该次请求的日志不会被committed，也不会被应用到A的状态机，但C处理的客户但请求对于日志就会被committed，此时的A实质是伪leader。</p>
+<p>(6) leader可能被降级吗?<br>会有可能。仍以上面的为例，假设A/B与C/D/E间的网络恢复，由于有2个leader同时存在，A/B可能收到leader C的请求，C/D/E有可能收到leader A的请求。在raft中，如果follower收到的leader/cadidate请求中的term比自己当前的term还小，就会立即返回失败。失败信息包含当前follower的term。A是leader，发现有比自己term还大的，立即降级自己，变为follower。同理，candidate在处理投票时如果发现有比自己大的term，也立即降级，成为follower。</p>
+<h2 id="日志复制"><a href="#日志复制" class="headerlink" title="日志复制"></a>日志复制</h2><p>每个日志项（log entry）包括index，term，command。index是表示日志索引号，由leader生成，单调递增。term代表一个选举周期，单调递增。command表示请求的信息。日志有两种状态，committed（提交），uncommitted（未提交），一旦日志为提交状态，就可以应用到状态机。在raft中，客户端请求都是先到leader，leader生成日志，然后leader再将该日志复制给follower，如果超过半数的follower回复成功，则该日志成为committed状态，可以应用到状态机。</p>
+<p>下图中每行表示一个server的日志序列（用S1~S5表示这五个server），S1是当前的leader，记录有8个日志项，term为1的有3个，term为2的为1个，term为3的有4个。S4只有2个日志项，并且term都为1，日志的lastLogIndex为2，lastLogTerm为1。Index为1～7的日志项都在超过半数的server存在，这些日志被称为committed（提交的），而index=8的日志，只在S1和S3存在，不超过半数，所以日志项8不是committed。</p>
+<p><img src="raft02.png" alt="raft"></p>
+<p>由于网络的复杂性，可能导致各server的日志不同步。</p>
+<p><img src="raft03.png" alt="raft"></p>
+<p>a~b表示的是server的日志没有跟leader同步，缺少了部分committed的日志，c~f表示server包含多余的未提交的日志项。以f为例，出现这种情况的场景可能是这样，在term为2时，f被选举为server，并收到客户端3次请求，生成日志，index为4/5/6，term都是2，但日志还没有来得及同步给其他server，f死机，然后又迅速回复，重新发起选举并成为leader，term变为3，这时f又收到客户端5次请求，生成日志，index为7/8/9/10/11，但未来得及同步给其他server，f又死机，并且一直没有恢复。之后，e被选举为新leader，新日志index将会按照e当前的最新index加1来生成。这样就在e内生成了index=4，term=4的日志，与f中的index=4，term=2的日志项含有相同index。这种情况是允许出现的，因为f中的日志index=4是未提交状态，这种日志不能被应用到状态机，实际上，在后续的同步中，将被新leader的日志覆盖。</p>
+<h3 id="日志复制的过程"><a href="#日志复制的过程" class="headerlink" title="日志复制的过程"></a>日志复制的过程</h3><p>Raft的日志复制都是由leader发起</p>
+<p>leader请求follower复制时，会带上leader当前的term，最近日志的index和term，及当前leader已经提交日志的日志编号。follower收到请求后，会检查2个条件，第一是term的检查，如果follower的term比leader还要大，则认为leader已经过时（比如之前讨论的出现孤岛现象，系统中有2个leader），返回失败。第2个检查是follower检测其日志中是否有匹配preLogIndex和preLogTerm的项，这里又可能出现两种情况，一是follower中不存在这样的preLogIndex，二是存在这样的preLogIndex，但其中的term和preLogTerm不一样，这两种情况，follower会返回失败，否则follower认为可以复制。</p>
+<p>leader请求复制term=3，index=5的日志项，请求时的preLogIndex为4，preLogTerm为2。在上面部分，follower有对应的preLogIndex及preLogTerm的日志项，复制成功，而下面部分，follower的preLogTerm不匹配，因此，follower会返回失败。</p>
+<p><img src="raft05.png" alt="raft"></p>
+<p>leader只会append自己的日志，而不会去删除或者覆盖自身的日志，而follower上的日志可能被覆盖。系统中每个follower的日志跟leader的同步进度并不一致，比如死机很久的follower的日志已经远远落后其他follower。这里leader为每个follower保存了nextIndex和matchIndex，nextIndex为leader下一次尝试跟follower同步的index，matchIndex表示follower当前已经跟leader同步的最大index。nextIndex决定了请求时的preLogIndex和preLogTerm，如果发现follower返回失败，会将nextIndex递减，直到找到follower返回成功的index，这种场景一般发生在follower落后leader很多的情况下出现或者follower有一些多余的混杂日志。</p>
+<p><img src="raft06.png" alt="raft"></p>
+<p>leader首先用preLogIndex=10，preLogTerm=6和server a进行日志同步，server a发现自己没有这样的匹配日志，会返回失败，然后leader会将nextIndex递减，变成9，这时再跟a同步，请求的preLogIndex=9，preLogTerm=6，a仍然返回失败，leader反复重试，直到发现preLogIndex=4，preLogTerm=4时与a匹配，这时a首先将index=4之后的日志全部擦除，然后将leader中index5~index10直接的日志复制到本机，这样a就与leader同步了。b中follower含有未提交的日志，这些日志在同步过程中，会被清理。</p>
 
       
     </div>
@@ -356,13 +389,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/20/20190326/">分布式的一些算法</a></p>
+        <p><span>本文标题:</span><a href="/2019/03/20/分布式/">分布式的一些算法</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年03月20日 - 22时35分</p>
-        <p><span>最后更新:</span>2019年04月24日 - 21时28分</p>
+        <p><span>最后更新:</span>2019年05月14日 - 20时15分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/20/20190326/" title="分布式的一些算法">http://superactivWzj.github.io/2019/03/20/20190326/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/03/20/20190326/　　作者: Wzj" title></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/20/分布式/" title="分布式的一些算法">http://superactivWzj.github.io/2019/03/20/分布式/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/03/20/分布式/　　作者: Wzj" title></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -373,20 +406,15 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/03/20/20190325/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/03/20/Spring/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Redis 相关
+          Spring 相关
         
       </div>
     </a>
   
-  
-    <a href="/2019/03/20/20190323/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring 相关</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
   
 </nav>
 
@@ -396,7 +424,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CAP"><span class="toc-number">1.</span> <span class="toc-text">CAP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consistency-一致性"><span class="toc-number">1.0.1.</span> <span class="toc-text">Consistency 一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Availability-可用性"><span class="toc-number">1.0.2.</span> <span class="toc-text">Availability 可用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition-Tolerance分区容错性"><span class="toc-number">1.0.3.</span> <span class="toc-text">Partition Tolerance分区容错性</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#BASE"><span class="toc-number">2.</span> <span class="toc-text">BASE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本可用（Basically-Available）"><span class="toc-number">2.0.1.</span> <span class="toc-text">基本可用（Basically Available）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#软状态（-Soft-State）"><span class="toc-number">2.0.2.</span> <span class="toc-text">软状态（ Soft State）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终一致性（-Eventual-Consistency）"><span class="toc-number">2.0.3.</span> <span class="toc-text">最终一致性（ Eventual Consistency）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2PC"><span class="toc-number">3.</span> <span class="toc-text">2PC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3PC"><span class="toc-number">4.</span> <span class="toc-text">3PC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PAXOS"><span class="toc-number">5.</span> <span class="toc-text">PAXOS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZAB"><span class="toc-number">6.</span> <span class="toc-text">ZAB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Raft"><span class="toc-number">7.</span> <span class="toc-text">Raft</span></a></li>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CAP"><span class="toc-number">1.</span> <span class="toc-text">CAP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consistency-一致性"><span class="toc-number">1.0.1.</span> <span class="toc-text">Consistency 一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Availability-可用性"><span class="toc-number">1.0.2.</span> <span class="toc-text">Availability 可用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition-Tolerance分区容错性"><span class="toc-number">1.0.3.</span> <span class="toc-text">Partition Tolerance分区容错性</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#BASE"><span class="toc-number">2.</span> <span class="toc-text">BASE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本可用（Basically-Available）"><span class="toc-number">2.0.1.</span> <span class="toc-text">基本可用（Basically Available）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#软状态（-Soft-State）"><span class="toc-number">2.0.2.</span> <span class="toc-text">软状态（ Soft State）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终一致性（-Eventual-Consistency）"><span class="toc-number">2.0.3.</span> <span class="toc-text">最终一致性（ Eventual Consistency）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2PC"><span class="toc-number">3.</span> <span class="toc-text">2PC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3PC"><span class="toc-number">4.</span> <span class="toc-text">3PC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PAXOS"><span class="toc-number">5.</span> <span class="toc-text">PAXOS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZAB"><span class="toc-number">6.</span> <span class="toc-text">ZAB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Raft"><span class="toc-number">7.</span> <span class="toc-text">Raft</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#leader选举"><span class="toc-number">7.1.</span> <span class="toc-text">leader选举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志复制"><span class="toc-number">7.2.</span> <span class="toc-text">日志复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#日志复制的过程"><span class="toc-number">7.2.1.</span> <span class="toc-text">日志复制的过程</span></a></li></ol></li></ol></li>
 </div>
 <style>
     .left-col .switch-btn {
@@ -469,18 +497,16 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/20/20190325/" title="上一篇: Redis 相关">
+            <a href="/2019/03/20/Spring/" title="上一篇: Spring 相关">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2019/03/20/20190323/" title="下一篇: Spring 相关">
-                <i class="fa fa-angle-right"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">gitignore push后添加</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190324/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190325/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190326/">分布式的一些算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/20190323/">Spring 相关</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/08/python-daily/">python-daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">git 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/JUC/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Redis/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Spring/">Spring 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/分布式/">分布式的一些算法</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
