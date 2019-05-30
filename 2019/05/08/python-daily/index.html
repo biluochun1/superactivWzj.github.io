@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Wzj&#39;s blog">
 <meta property="og:description" content="python-daily： 记录一下平时用到的python">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-08T02:15:32.597Z">
+<meta property="og:updated_time" content="2019-05-30T06:35:17.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-daily">
 <meta name="twitter:description" content="python-daily： 记录一下平时用到的python">
@@ -170,7 +170,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
                     </div>
                 </section>
                 
@@ -269,7 +269,14 @@
 <li><p>multiprocessing.Pool</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pool = multiprocessing.Pool(n)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    pool.apply_async(target,args=())</span><br><span class="line">    <span class="comment"># 这里异步执行</span></span><br><span class="line">pool.close() <span class="comment">#主线程要close，停止加入进程</span></span><br><span class="line">pool.join() <span class="comment">#阻塞当前进程，等待pool的进程执行完毕，要join，pool的进程才会执行，另外join要在close后面</span></span><br></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li><p>生成grpc源文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. file.proto</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json.dumps(dict)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果dict的key用 <span class="string">' ,返回后会变 "</span></span><br><span class="line"><span class="string">不想变的话可以 str(dict)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json.dumps 不能序列化np.array,需要.tolist()</p>
+</li>
 </ol>
 </the>
       
@@ -282,7 +289,7 @@
         <p><span>本文标题:</span><a href="/2019/05/08/python-daily/">python-daily</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年05月08日 - 10时05分</p>
-        <p><span>最后更新:</span>2019年05月08日 - 10时15分</p>
+        <p><span>最后更新:</span>2019年05月30日 - 14时35分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/08/python-daily/" title="python-daily">http://superactivWzj.github.io/2019/05/08/python-daily/</a>
             <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/05/08/python-daily/　　作者: Wzj" title></span>
@@ -295,6 +302,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2019/05/29/sql-daily/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          sql_daily
+        
+      </div>
+    </a>
   
   
     <a href="/2019/04/25/python-concurrent-futures/" id="article-nav-older" class="article-nav-link-wrap">
@@ -371,7 +387,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/05/29/sql-daily/" title="上一篇: sql_daily">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
@@ -380,7 +398,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/08/python-daily/">python-daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">git 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/JUC/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Redis/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Spring/">Spring 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/分布式/">分布式的一些算法</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/sql-daily/">sql_daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/08/python-daily/">python-daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">git 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Redis/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/JUC/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Spring/">Spring 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/分布式/">分布式的一些算法</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 

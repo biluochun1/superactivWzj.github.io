@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Wzj&#39;s blog">
 <meta property="og:description" content="Spring 相关： 总结的一些Spring">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-14T08:18:09.214Z">
+<meta property="og:updated_time" content="2019-05-30T11:15:21.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring 相关">
 <meta name="twitter:description" content="Spring 相关： 总结的一些Spring">
@@ -170,7 +170,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
+                        <a href="/tags/Future-Promise/" style="font-size: 10px;">Future Promise</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python-线程池/" style="font-size: 10px;">python 线程池</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/多线程-JUC/" style="font-size: 10px;">多线程,JUC</a>
                     </div>
                 </section>
                 
@@ -376,28 +376,27 @@
 <p>在Spring中，通过动态代理和动态字节码技术实现了AOP，这些内容，我们将在以后进行讲解。</p>
 <p><strong>AOP 名词的大白话解说</strong></p>
 <p>　　1、<strong>通知</strong>　　–  Advice</p>
-<p>　　　　<strong>就是要给目标类织入的事情</strong>。就是我们说的额外的一些共同的事情，也就是上面说的 事务，日志等。你给先定义好，然后在想用的地方用一下。</p>
+<p>　　<strong>就是要给目标类织入的事情</strong>。就是我们说的额外的一些共同的事情，也就是上面说的 事务，日志等。你给先定义好，然后在想用的地方用一下。</p>
 <p>　　2、<strong>连接点</strong>　　– JoinPoint</p>
-<p> 　　　　就是 spring 允许你使用通知的地方，那可真就多了，基本每个方法的前，后（两者都有也行），或抛出异常时都可以是连接点，spring 的话只支持方法连接点。和方法有关的前前后后（抛出异常），都是连接点。<strong>一个类的所有方法前、后、抛出异常时等都是连接点。</strong></p>
+<p> 　　就是 spring 允许你使用通知的地方，那可真就多了，基本每个方法的前，后（两者都有也行），或抛出异常时都可以是连接点，spring 的话只支持方法连接点。和方法有关的前前后后（抛出异常），都是连接点。<strong>一个类的所有方法前、后、抛出异常时等都是连接点。</strong></p>
 <p>　　3、<strong>切入点</strong>　　– Pointcut</p>
-<p>　　　　上面说的连接点的基础上，来定义切入点，你的一个类里，有15个方法，那就有几十个连接点了对把，但是你并不想在所有方法附近都使用通知（使用叫织入，下面再说），你只想让其中的几个，在调用这几个方法之前，之后或者抛出异常时干点什么，那么就用切点来定义这几个方法，让切点来筛选连接点，选中那几个你想要的方法。（比如需要开启事务的只是“ save <em> ”、“ update </em> ”..等等这些方法）。<strong>切入点就是定义了哪个类里面的哪些方法的会得到通知</strong>。</p>
+<p>　　上面说的连接点的基础上，来定义切入点，你的一个类里，有15个方法，那就有几十个连接点了对把，但是你并不想在所有方法附近都使用通知（使用叫织入，下面再说），你只想让其中的几个，在调用这几个方法之前，之后或者抛出异常时干点什么，那么就用切点来定义这几个方法，让切点来筛选连接点，选中那几个你想要的方法。（比如需要开启事务的只是“ save <em> ”、“ update </em> ”..等等这些方法）。<strong>切入点就是定义了哪个类里面的哪些方法的会得到通知</strong>。</p>
 <p>　　4、<strong>切面</strong>　　– Aspect</p>
-<p>　　　　<strong>切面是通知和切入点的结合</strong>。现在发现了吧，没连接点什么事情，连接点就是为了让你好理解切点，搞出来的，明白这个概念就行了。<strong>通知说明了干什么</strong>和什么时候干（什么时候通过方法名中的before,after，around等就能知道），而<strong>切入点说明了在哪干</strong>（指定到底是哪个方法），这就是一个完整的切面定义。</p>
+<p>　　<strong>切面是通知和切入点的结合</strong>。现在发现了吧，没连接点什么事情，连接点就是为了让你好理解切点，搞出来的，明白这个概念就行了。<strong>通知说明了干什么</strong>和什么时候干（什么时候通过方法名中的before,after，around等就能知道），而<strong>切入点说明了在哪干</strong>（指定到底是哪个方法），这就是一个完整的切面定义。</p>
 <p>　　5、<strong>织入</strong>　　– weaving</p>
-<p>　　　　<strong>把切面应用到目标对象来创建新的代理对象的过程。</strong>可以在编译时、类加载时、运行时完成的织入，spring 采用的是 <strong>在运行时完成织入</strong>。</p>
+<p>　　<strong>把切面应用到目标对象来创建新的代理对象的过程。</strong>可以在编译时、类加载时、运行时完成的织入，spring 采用的是 <strong>在运行时完成织入</strong>。</p>
 <p>　　6、<strong>引入</strong>　　– introduction</p>
-<p>　　　　允许我们向现有的类添加新方法属性。这不就是把切面（也就是新方法属性：通知定义的）用到目标类中吗~</p>
+<p>　　允许我们向现有的类添加新方法属性。这不就是把切面（也就是新方法属性：通知定义的）用到目标类中吗~</p>
 <p>　　7、<strong>目标</strong>　　– target</p>
-<p>　　　　引入中所提到的目标类，也就是<strong>要被通知的对象</strong>，<strong>也就是真正的业务逻辑</strong>，他可以在毫不知情的情况下，被咱们织入切面。而自己专注于业务本身的逻辑。</p>
+<p>　　引入中所提到的目标类，也就是<strong>要被通知的对象</strong>，<strong>也就是真正的业务逻辑</strong>，他可以在毫不知情的情况下，被咱们织入切面。而自己专注于业务本身的逻辑。</p>
 <p>　　8、<strong>AOP 的代理</strong>　　– AOP Proxy</p>
-<p>　　　　<strong>目标对象被织入增强后产生的结果类。</strong>我的理解它是 spring 为了骗过 jvm 的类型检查，搞出来的一个伪装类。</p>
-<p>　　　　spring 伪装采用了两种方式：</p>
-<p>　　　　① 实现和目标类相同的接口　　– 与目标类为双胞胎兄弟（要找我哥办事，弟弟我冒充哥哥收点礼物，再让我哥给你办事~）</p>
-<p>　　　　② 生成子类调用　　– 给目标类当儿子（学会了爸爸的本事，都找我办就好了，但是我要先收点礼物~）</p>
+<p>　　<strong>目标对象被织入增强后产生的结果类。</strong>我的理解它是 spring 为了骗过 jvm 的类型检查，搞出来的一个伪装类。</p>
+<p>　　spring 伪装采用了两种方式：</p>
+<p>　　① 实现和目标类相同的接口　　– 与目标类为双胞胎兄弟（要找我哥办事，弟弟我冒充哥哥收点礼物，再让我哥给你办事~）</p>
+<p>　　② 生成子类调用　　– 给目标类当儿子（学会了爸爸的本事，都找我办就好了，但是我要先收点礼物~）</p>
 <p>在Spring的AOP编程中:如果加入容器的目标对象有实现接口,用JDK代理;如果目标对象没有实现接口,用Cglib代理</p>
 <h1 id="Java的代理模式"><a href="#Java的代理模式" class="headerlink" title="Java的代理模式"></a>Java的代理模式</h1><h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理在使用时,需要定义接口或者父类,被代理对象与代理对象一起实现相同的接口或者是继承相同父类.</p>
 <h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><ul>
-<li>代理对象,不需要实现接口</li>
 <li>代理对象的生成,是利用JDK的API,动态的在内存中构建代理对象(需要我们指定创建代理对象/目标对象实现的接口的类型)</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(ClassLoader loader, Class&lt;?&gt;[] interfaces,InvocationHandler h )</span></span></span><br></pre></td></tr></table></figure>
@@ -446,7 +445,7 @@
         <p><span>本文标题:</span><a href="/2019/03/20/Spring/">Spring 相关</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年03月20日 - 22时35分</p>
-        <p><span>最后更新:</span>2019年05月14日 - 16时18分</p>
+        <p><span>最后更新:</span>2019年05月30日 - 19时15分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/03/20/Spring/" title="Spring 相关">http://superactivWzj.github.io/2019/03/20/Spring/</a>
             <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/03/20/Spring/　　作者: Wzj" title></span>
@@ -460,11 +459,11 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/03/20/Redis/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/03/20/JUC/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Redis 相关
+          JAVA JUC
         
       </div>
     </a>
@@ -544,7 +543,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/20/Redis/" title="上一篇: Redis 相关">
+            <a href="/2019/03/20/JUC/" title="上一篇: JAVA JUC">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -555,7 +554,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/08/python-daily/">python-daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">git 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/JUC/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Redis/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Spring/">Spring 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/分布式/">分布式的一些算法</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/29/sql-daily/">sql_daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/08/python-daily/">python-daily</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/python-concurrent-futures/">Python-concurrent.futures</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/Golang-study/">Golang-study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Future/">Future Promise</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/linux-command/">linux command</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/equals-hashcode/">为什么要重写equals和hashCode方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/03/gitignore/">git 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Redis/">Redis 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/JUC/">JAVA JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Spring/">Spring 相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/分布式/">分布式的一些算法</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
