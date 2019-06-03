@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Wzj&#39;s blog">
 <meta property="og:description" content="python-daily： 记录一下平时用到的python">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-30T06:35:17.363Z">
+<meta property="og:updated_time" content="2019-06-03T06:36:29.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-daily">
 <meta name="twitter:description" content="python-daily： 记录一下平时用到的python">
@@ -277,6 +277,15 @@
 </li>
 <li><p>json.dumps 不能序列化np.array,需要.tolist()</p>
 </li>
+<li><p>毫秒级别时间戳</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">datetime.datetime.now().strftime(<span class="string">"%H:%M:%S.%f"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>python grpc 使用多进程</p>
+<p><a href="https://github.com/grpc/grpc/blob/master/doc/fork_support.md" target="_blank" rel="noopener">https://github.com/grpc/grpc/blob/master/doc/fork_support.md</a></p>
+<blockquote>
+<p>In Python, multithreading is ineffective at concurrency for CPU bound tasks due to the GIL (global interpreter lock). Extension modules can release the GIL in CPU bound tasks, but that isn’t an option in pure Python. Users use libraries such as multiprocessing, subprocess, concurrent.futures.ProcessPoolExecutor, etc, to work around the GIL. These modules call fork() underneath the hood. Various issues have been reported when using these modules with gRPC Python. gRPC Python wraps gRPC core, which uses multithreading for performance, and hence doesn’t support fork(). Historically, we didn’t support forking in gRPC, but some users seemed to be doing fine until their code started to break on version 1.6. This was likely caused by the addition of background c-threads and a background Python thread.</p>
+</blockquote>
+</li>
 </ol>
 </the>
       
@@ -289,7 +298,7 @@
         <p><span>本文标题:</span><a href="/2019/05/08/python-daily/">python-daily</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Wzj 的个人博客">Wzj</a></p>
         <p><span>发布时间:</span>2019年05月08日 - 10时05分</p>
-        <p><span>最后更新:</span>2019年05月30日 - 14时35分</p>
+        <p><span>最后更新:</span>2019年06月03日 - 14时36分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/08/python-daily/" title="python-daily">http://superactivWzj.github.io/2019/05/08/python-daily/</a>
             <span class="copy-path" data-clipboard-text="原文: http://superactivWzj.github.io/2019/05/08/python-daily/　　作者: Wzj" title></span>
